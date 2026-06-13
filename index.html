@@ -132,31 +132,13 @@
                     <span class="material-symbols-outlined text-[18px]">dashboard</span>
                     Dashboard
                 </button>
-                <button id="nav-btn-actions" class="nav-tab font-label-md text-label-md flex items-center gap-sm text-on-surface-variant hover:bg-secondary-container/50 transition-colors rounded-full px-4 py-1.5 active:scale-95" onclick="switchTab('actions')">
-                    <span class="material-symbols-outlined text-[18px]">eco</span>
-                    Actions
-                </button>
-                <button id="nav-btn-community" class="nav-tab font-label-md text-label-md flex items-center gap-sm text-on-surface-variant hover:bg-secondary-container/50 transition-colors rounded-full px-4 py-1.5 active:scale-95" onclick="switchTab('community')">
-                    <span class="material-symbols-outlined text-[18px]">group</span>
-                    Community
-                </button>
             </nav>
 
             <div class="flex items-center gap-md">
-                <!-- Streak Badge -->
-                <div class="flex items-center gap-xs px-3 py-1 bg-tertiary-fixed rounded-full text-on-tertiary-fixed cursor-pointer active:scale-95 transition-transform" onclick="triggerStreakToast()">
-                    <span class="text-label-md font-label-md font-bold" id="user-streak-display">7 🔥</span>
-                </div>
-                
                 <!-- EcoPoints Pill -->
-                <div class="hidden sm:flex items-center gap-xs px-3 py-1 bg-primary-container/20 rounded-full text-primary">
+                <div class="flex items-center gap-xs px-3 py-1 bg-primary-container/20 rounded-full text-primary">
                     <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
                     <span class="text-label-md font-label-md font-bold" id="user-points-display">450 pts</span>
-                </div>
-
-                <!-- User Profile Dropdown / Avatar -->
-                <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container shrink-0">
-                    <img id="user-avatar" alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG9wDDpdFN3JkkOKSU_rzhggUyyxkk6vxVPZ74IX8jClYZLeSTmCbjXTOnEOt4Kyu4wctoxsMZnUUzkkJAqFUD9AZwbBTLQZVj6T1TetN-4g4Bc4uo6-FyxC8yz1luMPnXA6TRwHoVZnxJUrOnKc_6fU8QKeSovQMs40eO0ipBXuDLY8EJJ4O7mdKgDOD9cWNfr60fi-kRfFYVZDUoTPurh--_5-PfcTjFscJ8pMNtjxJwhgJGzZYXOOPpRfcJQw15tUyrgk1D3c4"/>
                 </div>
             </div>
         </div>
@@ -171,124 +153,71 @@
             <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div class="relative w-[600px] h-[450px] md:w-[700px] md:h-[520px] pointer-events-auto">
                     <!-- World Island Base -->
-                    <div id="world-island" class="absolute inset-0 isometric-view bg-primary-container/20 rounded-[64px] border-b-[20px] border-primary/20 shadow-2xl overflow-hidden flex items-center justify-center">
-                        <img alt="World Map Texture" class="w-full h-full object-cover opacity-60 absolute" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCODKfS3qVLsz54y7Rj8fDoIs7M2N-vrGgRg5A21mZoxlanEXVza9_sB4u2SMn8BnziAW9XDyQDGo1_uwBmuiTd7tC87bFM4wYg6ZFombaPf2pzuPssEsvZYgEGHgRNDOmrBThxgKPc-YxyQQcfatedscNG6CSftbKbYeBBiBj0gIAMjxjpS-s7lVTZoUAL2xad1jTpQ7wTlgHFUCJBplMUptJFBcn7G0PCQYowf-3UIHFoFqIpDFKe_vb9z_SO416fATRppi-0pIA"/>
+                    <div id="world-island" class="absolute inset-0 isometric-view bg-primary-container/20 rounded-[64px] border-b-[20px] border-primary/20 shadow-2xl overflow-hidden flex items-center justify-center transition-colors duration-1000">
+                        <img alt="World Map Texture" class="w-full h-full object-cover opacity-60 absolute transition-all duration-1000" id="island-base-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCODKfS3qVLsz54y7Rj8fDoIs7M2N-vrGgRg5A21mZoxlanEXVza9_sB4u2SMn8BnziAW9XDyQDGo1_uwBmuiTd7tC87bFM4wYg6ZFombaPf2pzuPssEsvZYgEGHgRNDOmrBThxgKPc-YxyQQcfatedscNG6CSftbKbYeBBiBj0gIAMjxjpS-s7lVTZoUAL2xad1jTpQ7wTlgHFUCJBplMUptJFBcn7G0PCQYowf-3UIHFoFqIpDFKe_vb9z_SO416fATRppi-0pIA"/>
                         
-                        <!-- Floating Items Visually toggled by State -->
-                        <!-- Transport Bike -->
+                        <!-- Pollution Smog Overlays -->
+                        <div id="pollution-overlay" class="absolute inset-0 bg-stone-900/0 pointer-events-none transition-all duration-1000 mix-blend-color-burn z-20"></div>
+                        <div id="smog-overlay" class="absolute inset-0 bg-yellow-900/0 opacity-0 pointer-events-none transition-all duration-1000 mix-blend-multiply z-20 backdrop-grayscale-[0]"></div>
+
+                        <!-- Floating Items Visually toggled by Health State -->
+                        <!-- Transport Bike (Clean) -->
                         <div id="island-item-transport" class="absolute top-1/3 left-1/3 w-32 h-32 flex flex-col items-center justify-center transition-all duration-500 scale-0 origin-bottom pointer-events-none z-10">
                             <span class="material-symbols-outlined text-primary text-[48px] filter drop-shadow-md animate-bounce" style="font-variation-settings: 'FILL' 1; animation-duration: 2.5s;">directions_bike</span>
                             <div class="bg-white/80 backdrop-blur-sm px-2.5 py-0.5 rounded-lg text-[10px] font-bold text-primary shadow-sm mt-1">Green Commute</div>
                         </div>
 
-                        <!-- Diet/Produce -->
+                        <!-- Diet/Produce (Clean) -->
                         <div id="island-item-diet" class="absolute top-1/2 left-1/4 w-32 h-32 flex flex-col items-center justify-center transition-all duration-500 scale-0 origin-bottom pointer-events-none z-10">
                             <span class="material-symbols-outlined text-tertiary text-[40px] filter drop-shadow-md" style="font-variation-settings: 'FILL' 1;">eco</span>
                             <div class="bg-white/80 backdrop-blur-sm px-2.5 py-0.5 rounded-lg text-[10px] font-bold text-tertiary shadow-sm mt-1">Local Diet</div>
                         </div>
 
-                        <!-- Energy Solar -->
+                        <!-- Energy Solar (Clean) -->
                         <div id="island-item-energy" class="absolute bottom-1/3 right-1/4 w-32 h-32 flex flex-col items-center justify-center transition-all duration-500 scale-0 origin-bottom pointer-events-none z-10">
                             <span class="material-symbols-outlined text-tertiary-container text-[48px] filter drop-shadow-md animate-pulse" style="font-variation-settings: 'FILL' 1;">solar_power</span>
                             <div class="bg-white/80 backdrop-blur-sm px-2.5 py-0.5 rounded-lg text-[10px] font-bold text-on-tertiary-container shadow-sm mt-1">Solar Grid</div>
                         </div>
 
-                        <!-- Rewilding Trees -->
+                        <!-- Rewilding Trees (Clean) -->
                         <div id="island-item-rewild" class="absolute top-1/4 right-1/3 w-32 h-32 flex flex-col items-center justify-center transition-all duration-500 scale-0 origin-bottom pointer-events-none z-10">
                             <span class="material-symbols-outlined text-primary text-[54px] filter drop-shadow-md animate-bounce" style="font-variation-settings: 'FILL' 1; animation-duration: 3s;">park</span>
                             <div class="bg-white/80 backdrop-blur-sm px-2.5 py-0.5 rounded-lg text-[10px] font-bold text-primary shadow-sm mt-1">Reforested</div>
                         </div>
 
-                        <!-- Waste/Recycle -->
-                        <div id="island-item-waste" class="absolute bottom-1/4 left-1/3 w-32 h-32 flex flex-col items-center justify-center transition-all duration-500 scale-0 origin-bottom pointer-events-none z-10">
-                            <span class="material-symbols-outlined text-secondary text-[40px] filter drop-shadow-md" style="font-variation-settings: 'FILL' 1;">delete_outline</span>
-                            <div class="bg-white/80 backdrop-blur-sm px-2.5 py-0.5 rounded-lg text-[10px] font-bold text-secondary shadow-sm mt-1">Composting</div>
-                        </div>
-
-                        <!-- Water Drop -->
-                        <div id="island-item-water" class="absolute top-1/3 right-1/4 w-32 h-32 flex flex-col items-center justify-center transition-all duration-500 scale-0 origin-bottom pointer-events-none z-10">
-                            <span class="material-symbols-outlined text-blue-500 text-[42px] filter drop-shadow-md" style="font-variation-settings: 'FILL' 1;">water_drop</span>
-                            <div class="bg-white/80 backdrop-blur-sm px-2.5 py-0.5 rounded-lg text-[10px] font-bold text-blue-600 shadow-sm mt-1">Water Saved</div>
+                        <!-- Factory Pollution (Dirty State) -->
+                        <div id="island-item-pollution" class="absolute top-1/4 left-1/2 -translate-x-1/2 w-32 h-32 flex flex-col items-center justify-center transition-all duration-500 scale-0 origin-bottom pointer-events-none z-10">
+                            <span class="material-symbols-outlined text-stone-700 text-[54px] filter drop-shadow-md animate-bounce" style="animation-duration: 4s;">factory</span>
+                            <div class="bg-red-500 text-white px-2.5 py-0.5 rounded-lg text-[10px] font-bold shadow-sm mt-1">High Emissions</div>
                         </div>
                     </div>
 
                     <!-- Drag/Interact hints -->
                     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-on-surface-variant font-label-md flex items-center gap-2 glass-panel px-4 py-2 rounded-full shadow-sm text-xs select-none">
-                        <span class="material-symbols-outlined text-sm">mouse</span>
-                        Click options below to build/upgrade your world.
+                        <span class="material-symbols-outlined text-sm">nature_people</span>
+                        The environment of your island adapts dynamically to your footprint.
                     </div>
                 </div>
             </div>
 
-            <!-- Left Panel: Action Items -->
-            <aside class="absolute left-4 top-4 bottom-4 w-60 hidden md:flex flex-col gap-4 z-20">
-                <div class="glass-panel rounded-3xl p-5 shadow-xl border border-white/50 flex-1 flex flex-col">
-                    <h3 class="text-headline-md text-primary font-bold mb-4">Build Your World</h3>
-                    <div class="grid grid-cols-2 gap-3 overflow-y-auto custom-scrollbar flex-1 pr-1">
-                        <!-- Transport -->
-                        <button id="world-btn-transport" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-white hover:bg-secondary-container/30 transition-all border border-transparent hover:border-primary/20 group" onclick="toggleWorldItem('transport')">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-lg">directions_bus</span>
-                            </div>
-                            <span class="text-[11px] font-semibold mt-1.5 text-on-surface">Transport</span>
-                        </button>
-                        <!-- Diet -->
-                        <button id="world-btn-diet" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-white hover:bg-secondary-container/30 transition-all border border-transparent hover:border-primary/20 group" onclick="toggleWorldItem('diet')">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-lg">nutrition</span>
-                            </div>
-                            <span class="text-[11px] font-semibold mt-1.5 text-on-surface">Diet</span>
-                        </button>
-                        <!-- Energy -->
-                        <button id="world-btn-energy" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-white hover:bg-secondary-container/30 transition-all border border-transparent hover:border-primary/20 group" onclick="toggleWorldItem('energy')">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-lg">bolt</span>
-                            </div>
-                            <span class="text-[11px] font-semibold mt-1.5 text-on-surface">Energy</span>
-                        </button>
-                        <!-- Rewild -->
-                        <button id="world-btn-rewild" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-white hover:bg-secondary-container/30 transition-all border border-transparent hover:border-primary/20 group" onclick="toggleWorldItem('rewild')">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-lg">forest</span>
-                            </div>
-                            <span class="text-[11px] font-semibold mt-1.5 text-on-surface">Rewild</span>
-                        </button>
-                        <!-- Waste -->
-                        <button id="world-btn-waste" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-white hover:bg-secondary-container/30 transition-all border border-transparent hover:border-primary/20 group" onclick="toggleWorldItem('waste')">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-lg">delete_outline</span>
-                            </div>
-                            <span class="text-[11px] font-semibold mt-1.5 text-on-surface">Waste</span>
-                        </button>
-                        <!-- Water -->
-                        <button id="world-btn-water" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-white hover:bg-secondary-container/30 transition-all border border-transparent hover:border-primary/20 group" onclick="toggleWorldItem('water')">
-                            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-lg">water_drop</span>
-                            </div>
-                            <span class="text-[11px] font-semibold mt-1.5 text-on-surface">Water</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="glass-panel p-4 rounded-2xl border-l-4 border-primary shadow-md shrink-0">
-                    <p class="text-[11px] font-medium text-on-surface-variant italic">"Did you know? Switching to local produce can reduce your island's carbon mist by 12%."</p>
-                </div>
-            </aside>
+            <!-- Left Panel: Removed manual items, we keep design balanced and simple -->
 
             <!-- Right Panel: Impact Dashboard Summary -->
             <aside class="absolute right-4 top-4 bottom-4 w-72 hidden md:flex flex-col gap-4 z-20">
                 <div class="glass-panel rounded-[32px] p-6 shadow-2xl border border-white/80 flex flex-col justify-between h-full">
                     <div>
-                        <h3 class="text-headline-md text-on-surface font-bold mb-4">Daily Impact</h3>
-                        <!-- Progress Ring Meter -->
+                        <h3 class="text-headline-md text-on-surface font-bold mb-2">Island Health</h3>
+                        <p class="text-[11px] text-on-surface-variant mb-4">Emissions determine the digital ecosystem's status.</p>
+                        
+                        <!-- Health Status Meter -->
                         <div class="relative flex justify-center items-center my-4">
                             <svg class="w-40 h-40">
                                 <circle class="text-secondary-container" cx="80" cy="80" fill="transparent" r="65" stroke="currentColor" stroke-width="10"></circle>
-                                <circle id="world-goal-ring" class="text-primary progress-ring-circle" cx="80" cy="80" fill="transparent" r="65" stroke="currentColor" stroke-dasharray="408.4" stroke-dashoffset="306.3" stroke-linecap="round" stroke-width="10"></circle>
+                                <circle id="world-health-ring" class="text-primary progress-ring-circle" cx="80" cy="80" fill="transparent" r="65" stroke="currentColor" stroke-dasharray="408.4" stroke-dashoffset="0" stroke-linecap="round" stroke-width="10"></circle>
                             </svg>
                             <div class="absolute flex flex-col items-center">
-                                <span id="world-goal-percent" class="text-[28px] font-bold text-primary font-headline-lg leading-none">25%</span>
-                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-bold mt-1">Goal Reach</span>
+                                <span id="world-health-status" class="text-[22px] font-bold text-primary font-headline-lg leading-none">Healthy</span>
+                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-bold mt-1" id="world-health-score">Good</span>
                             </div>
                         </div>
                     </div>
@@ -300,548 +229,254 @@
                                 <div class="p-1.5 bg-primary/10 rounded-xl text-primary flex items-center justify-center shrink-0">
                                     <span class="material-symbols-outlined text-[18px]">co2</span>
                                 </div>
-                                <span class="text-[11px] font-semibold text-on-surface-variant">Carbon Saved</span>
+                                <span class="text-[11px] font-semibold text-on-surface-variant">Annual Footprint</span>
                             </div>
-                            <span id="world-savings-display" class="text-base font-bold text-primary">1.2kg<span class="text-[10px] font-normal text-on-surface-variant">/d</span></span>
-                        </div>
-                        <div class="flex items-center justify-between p-3.5 bg-white/50 rounded-2xl shadow-sm">
-                            <div class="flex items-center gap-2">
-                                <div class="p-1.5 bg-tertiary/10 rounded-xl text-tertiary flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-[18px]">energy_savings_leaf</span>
-                                </div>
-                                <span class="text-[11px] font-semibold text-on-surface-variant">Eco Points</span>
-                            </div>
-                            <span id="world-points-display" class="text-base font-bold text-tertiary">+450</span>
+                            <span id="world-footprint-display" class="text-base font-bold text-primary">0 kg</span>
                         </div>
                     </div>
 
-                    <button class="w-full mt-4 bg-primary text-white py-3.5 rounded-full font-label-md hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all text-xs font-bold" onclick="switchTab('actions')">
-                        View Weekly Report
+                    <button class="w-full mt-4 bg-primary text-white py-3.5 rounded-full font-label-md hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all text-xs font-bold" onclick="switchTab('dashboard')">
+                        Go to Calculator
                     </button>
                 </div>
             </aside>
-
+            
             <!-- Floating Level/Milestone badge (Simulated) -->
             <div id="milestone-toast" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 transition-all duration-300 opacity-0 translate-y-4">
                 <div class="bg-primary-container text-on-primary-container px-6 py-3 rounded-full shadow-lg flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform" onclick="dismissMilestoneToast()">
                     <span class="material-symbols-outlined text-lg">celebration</span>
-                    <span class="font-label-md text-sm font-semibold">Level 2 Milestone Reached!</span>
+                    <span class="font-label-md text-sm font-semibold">Climate Goal Met! Island Restored</span>
                 </div>
-            </div>
-            
-            <!-- Mobile Overlay controls (visible when size < md) -->
-            <div class="md:hidden absolute bottom-4 left-4 right-4 flex gap-2 justify-around z-20 bg-white/80 backdrop-blur-md p-3.5 rounded-2xl shadow-lg border border-primary/5">
-                <button class="flex flex-col items-center text-primary" onclick="toggleWorldItem('transport')">
-                    <span class="material-symbols-outlined text-xl">directions_bike</span>
-                    <span class="text-[10px] font-bold">Commute</span>
-                </button>
-                <button class="flex flex-col items-center text-primary" onclick="toggleWorldItem('diet')">
-                    <span class="material-symbols-outlined text-xl">nutrition</span>
-                    <span class="text-[10px] font-bold">Diet</span>
-                </button>
-                <button class="flex flex-col items-center text-primary" onclick="toggleWorldItem('energy')">
-                    <span class="material-symbols-outlined text-xl">bolt</span>
-                    <span class="text-[10px] font-bold">Energy</span>
-                </button>
-                <button class="flex flex-col items-center text-primary" onclick="toggleWorldItem('rewild')">
-                    <span class="material-symbols-outlined text-xl">forest</span>
-                    <span class="text-[10px] font-bold">Rewild</span>
-                </button>
             </div>
         </div>
 
         <!-- 2. DASHBOARD VIEW -->
         <div id="view-dashboard" class="tab-content">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-lg items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
                 
-                <!-- Main Footprint Meter (Bento Col 1-7) -->
-                <section class="md:col-span-7 bg-surface-container-lowest rounded-3xl p-xl shadow-primary-soft flex flex-col items-center relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-lg opacity-10">
-                        <span class="material-symbols-outlined text-[120px] text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
-                    </div>
-                    <div class="w-full mb-xl">
-                        <h1 class="font-headline-lg text-headline-lg text-on-background mb-base">Monthly Footprint</h1>
-                        <p class="font-body-md text-on-surface-variant">You're on track to beat your carbon goal this month.</p>
+                <!-- Left Column: Carbon Footprint Calculator Form (lg:col-span-7) -->
+                <section class="lg:col-span-7 bg-white rounded-3xl p-xl shadow-primary-soft border border-surface-container">
+                    <div class="flex items-center gap-sm mb-lg border-b border-surface-variant/30 pb-4">
+                        <span class="material-symbols-outlined text-primary text-[28px]">calculate</span>
+                        <div>
+                            <h2 class="font-headline-lg text-headline-lg text-on-background font-bold leading-none">Carbon Footprint Calculator</h2>
+                            <p class="font-body-md text-xs text-on-surface-variant mt-1">Estimate your annual ecological impact and receive Gemini AI recommendations.</p>
+                        </div>
                     </div>
                     
-                    <!-- Circular Meter -->
-                    <div class="relative flex items-center justify-center w-64 h-64 md:w-80 md:h-80 my-lg">
-                        <svg class="w-full h-full" viewbox="0 0 100 100">
-                            <circle class="text-secondary-container stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="8"></circle>
-                            <circle id="dashboard-progress-circle" class="text-primary-container stroke-current progress-ring-circle" cx="50" cy="50" fill="transparent" r="40" stroke-linecap="round" stroke-width="8" style="stroke-dasharray: 251.2; stroke-dashoffset: 251.2;"></circle>
-                        </svg>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                            <span id="dashboard-footprint-value" class="font-display-lg text-[48px] md:text-[64px] text-primary font-bold">742</span>
-                            <span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest text-xs font-bold mt-1">kg CO2e</span>
-                            <div class="mt-md px-3 py-1 bg-surface-container-high rounded-full">
-                                <span id="dashboard-goal-display" class="font-label-sm text-label-sm text-on-primary-container font-semibold text-xs">Goal: 850kg</span>
+                    <form id="calculator-form" onsubmit="event.preventDefault(); calculateUserFootprint();" class="space-y-xl">
+                        <!-- 1. Travel & Transit -->
+                        <div>
+                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base">directions_car</span>
+                                Travel & Transit (Annual km)
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-car-petrol">Petrol or Hybrid Car</label>
+                                    <input type="number" id="input-car-petrol" min="0" value="5000" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-car-diesel">Diesel Car</label>
+                                    <input type="number" id="input-car-diesel" min="0" value="0" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-car-electric">Battery Electric Car</label>
+                                    <input type="number" id="input-car-electric" min="0" value="0" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-bus">Bus or Coach</label>
+                                    <input type="number" id="input-bus" min="0" value="1000" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-train">Train, Metro, or Tram</label>
+                                    <input type="number" id="input-train" min="0" value="2000" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="w-full grid grid-cols-3 gap-md pt-lg border-t border-surface-variant/30 mt-4">
-                        <div class="text-center">
-                            <p class="font-label-sm text-label-sm text-on-surface-variant text-xs mb-1">Last Month</p>
-                            <p class="font-headline-md text-headline-md text-on-background font-bold">812kg</p>
+
+                        <!-- 2. Flights -->
+                        <div>
+                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base">flight</span>
+                                Aviation & Flights (Annual Count)
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-flights-short">Short-haul Flights (&lt; 3 hours)</label>
+                                    <input type="number" id="input-flights-short" min="0" value="1" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-flights-long">Long-haul Flights (&gt; 3 hours)</label>
+                                    <input type="number" id="input-flights-long" min="0" value="0" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-center border-x border-surface-variant/30 px-md">
-                            <p class="font-label-sm text-label-sm text-on-surface-variant text-xs mb-1">Saved</p>
-                            <p id="dashboard-saved-value" class="font-headline-md text-headline-md text-tertiary font-bold">108kg</p>
+
+                        <!-- 3. Diet & Consumption -->
+                        <div>
+                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base">restaurant</span>
+                                Dietary & Spending Habits
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-diet">Dietary Pattern</label>
+                                    <select id="input-diet" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary">
+                                        <option value="vegan">🌱 Vegan</option>
+                                        <option value="vegetarian">🥚 Vegetarian</option>
+                                        <option value="meat_medium" selected>🍗 Meat-moderate</option>
+                                        <option value="meat_heavy">🥩 Meat-heavy</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-consumption">Goods & Spending Level</label>
+                                    <select id="input-consumption" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary">
+                                        <option value="low">🌿 Low (Second-hand, minimal)</option>
+                                        <option value="medium" selected>⚖️ Medium (Average consumer)</option>
+                                        <option value="high">🛒 High (Frequent new goods)</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <p class="font-label-sm text-label-sm text-on-surface-variant text-xs mb-1">Plan</p>
-                            <p class="font-headline-md text-headline-md text-primary font-bold">Active</p>
+
+                        <!-- 4. Home Energy -->
+                        <div>
+                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base">home</span>
+                                Household Energy Consumption
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-energy-electricity">Electricity (Annual kWh)</label>
+                                    <input type="number" id="input-energy-electricity" min="0" value="3000" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-energy-gas">Gas (Annual kWh)</label>
+                                    <input type="number" id="input-energy-gas" min="0" value="1000" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-household-size">Household Size</label>
+                                    <input type="number" id="input-household-size" min="1" value="2" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-lg border-t border-surface-variant/30 flex justify-between items-center">
+                            <span id="api-status-indicator" class="text-[10px] font-semibold text-on-surface-variant flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Remote API connected
+                            </span>
+                            <button type="submit" id="btn-calculate" class="bg-primary text-white px-8 py-3 rounded-full font-label-md shadow-lg active:scale-95 transition-all hover:bg-emerald-700 text-xs font-bold flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">energy_savings_leaf</span>
+                                Calculate Footprint
+                            </button>
+                        </div>
+                    </form>
                 </section>
                 
-                <!-- Sidebar Column (Bento Col 8-12) -->
-                <aside class="md:col-span-5 flex flex-col gap-lg h-full">
-                    <!-- Project Reforest Visual Highlight -->
-                    <div class="relative group rounded-3xl overflow-hidden shadow-primary-soft h-64 md:h-[300px]">
-                        <img alt="Project Reforest" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASScpwbBXsC2autHcu7CJav_aPNK56jaGRProzlinYZj-NVEyPISCLtZ9qFyPIL_juUdLOGxhrRdYdwMu7_GvoXgGx3aHZ60bSJPwpS0Rbd9inVawLzpIkOhuBgNyTngZyq8HcBrBAp7PZJDq9MlQjhQX_pnMmeEKj0aQOP17oA-2tSjtGCvjrbLWyynpSw3B72F3WZm9xvH4zLB3zC78DQc3qoKAByFnXxBf_frq_S6XyMnrbqEHHLx--BYEzQdQRsoK4CI_e8TU"/>
-                        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex flex-col justify-end p-xl">
-                            <span class="font-label-sm text-label-sm text-primary-fixed bg-on-primary-container/30 backdrop-blur-md px-3 py-1 rounded-full w-fit mb-md text-xs font-semibold">Community Initiative</span>
-                            <h2 class="font-headline-md text-headline-md text-white font-bold">Project Reforest</h2>
-                            <p id="reforest-status-display" class="font-body-md text-white/90 text-sm mt-sm">You've contributed 12 trees this quarter. Let's reach 20.</p>
-                            <button class="mt-lg w-full py-3 bg-white text-primary font-label-md rounded-full hover:bg-primary-fixed transition-colors active:scale-95 duration-200 text-xs font-bold" onclick="switchTab('community')">View Progress</button>
+                <!-- Right Column: Results Dashboard (lg:col-span-5) -->
+                <aside class="lg:col-span-5 flex flex-col gap-lg h-full">
+                    
+                    <!-- Footprint Meter -->
+                    <section class="bg-surface-container-lowest rounded-3xl p-xl shadow-primary-soft flex flex-col items-center relative overflow-hidden border border-surface-container">
+                        <div class="w-full mb-md">
+                            <h3 class="font-headline-md text-on-background font-bold text-lg">Annual Results</h3>
+                            <p class="font-body-md text-xs text-on-surface-variant">Your carbon footprint details per year.</p>
                         </div>
-                    </div>
+                        
+                        <!-- Circular Meter -->
+                        <div class="relative flex items-center justify-center w-56 h-56 my-md">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle class="text-secondary-container stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="8"></circle>
+                                <circle id="dashboard-progress-circle" class="text-primary-container stroke-current progress-ring-circle" cx="50" cy="50" fill="transparent" r="40" stroke-linecap="round" stroke-width="8" style="stroke-dasharray: 251.2; stroke-dashoffset: 251.2;"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                <span id="dashboard-footprint-value" class="font-display-lg text-[36px] text-primary font-bold">0</span>
+                                <span class="font-label-md text-[10px] text-on-surface-variant uppercase tracking-widest font-bold mt-1">kg CO₂e</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Comparisons grid -->
+                        <div class="w-full grid grid-cols-2 gap-md pt-md border-t border-surface-variant/30 mt-2 text-center text-xs">
+                            <div class="bg-surface p-2.5 rounded-2xl">
+                                <p class="text-[10px] text-on-surface-variant font-semibold mb-1">vs Paris Target</p>
+                                <p id="dashboard-paris-compare" class="font-bold text-primary font-headline-md">-</p>
+                                <p class="text-[8px] text-on-surface-variant">Target: 2,000 kg</p>
+                            </div>
+                            <div class="bg-surface p-2.5 rounded-2xl">
+                                <p class="text-[10px] text-on-surface-variant font-semibold mb-1">vs Global Avg</p>
+                                <p id="dashboard-avg-compare" class="font-bold text-tertiary font-headline-md">-</p>
+                                <p class="text-[8px] text-on-surface-variant">Average: 8,000 kg</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Category Breakdown -->
+                    <section class="bg-white rounded-3xl p-xl shadow-primary-soft border border-surface-container">
+                        <h3 class="font-headline-md text-on-surface font-bold text-base mb-md">Breakdown</h3>
+                        <div class="space-y-md">
+                            <!-- Transport -->
+                            <div>
+                                <div class="flex justify-between text-[11px] font-semibold text-on-surface-variant mb-1">
+                                    <span class="flex items-center gap-1">🚗 Transport</span>
+                                    <span id="breakdown-val-transport">0 kg</span>
+                                </div>
+                                <div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+                                    <div id="breakdown-bar-transport" class="h-full bg-primary rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <!-- Diet -->
+                            <div>
+                                <div class="flex justify-between text-[11px] font-semibold text-on-surface-variant mb-1">
+                                    <span class="flex items-center gap-1">🥗 Diet</span>
+                                    <span id="breakdown-val-food">0 kg</span>
+                                </div>
+                                <div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+                                    <div id="breakdown-bar-food" class="h-full bg-tertiary rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <!-- Home -->
+                            <div>
+                                <div class="flex justify-between text-[11px] font-semibold text-on-surface-variant mb-1">
+                                    <span class="flex items-center gap-1">🏠 Home Energy</span>
+                                    <span id="breakdown-val-home">0 kg</span>
+                                </div>
+                                <div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+                                    <div id="breakdown-bar-home" class="h-full bg-blue-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <!-- Shopping -->
+                            <div>
+                                <div class="flex justify-between text-[11px] font-semibold text-on-surface-variant mb-1">
+                                    <span class="flex items-center gap-1">🛍️ Consumption</span>
+                                    <span id="breakdown-val-shopping">0 kg</span>
+                                </div>
+                                <div class="h-2 w-full bg-surface rounded-full overflow-hidden">
+                                    <div id="breakdown-bar-shopping" class="h-full bg-stone-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                     
                     <!-- Eco Insights Section -->
-                    <section class="bg-surface-container rounded-3xl p-xl flex-1 border border-primary/5 shadow-sm">
+                    <section class="bg-surface-container rounded-3xl p-xl border border-primary/5 shadow-sm">
                         <div class="flex items-center gap-sm mb-lg">
                             <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
-                            <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Eco Insights</h3>
+                            <h3 class="font-headline-md text-on-surface font-bold text-base">Gemini AI Insights</h3>
                         </div>
                         
-                        <div class="space-y-md">
-                            <div class="bg-surface-container-lowest p-md rounded-2xl flex gap-md items-start shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-primary/10" onclick="triggerLogModal('diet', 'Switch to Oat Milk', 0.4)">
-                                <div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-tertiary">restaurant</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-md text-on-surface font-semibold text-sm">Switch to Oat Milk</p>
-                                    <p class="font-body-md text-xs text-on-surface-variant">Reduces your daily food footprint by 0.4kg CO2e.</p>
-                                </div>
-                            </div>
-                            <div class="bg-surface-container-lowest p-md rounded-2xl flex gap-md items-start shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-primary/10" onclick="triggerLogModal('transport', 'Bike to Work', 2.1)">
-                                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-primary">directions_bike</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-md text-on-surface font-semibold text-sm">Biking Streak: 4 Days</p>
-                                    <p class="font-body-md text-xs text-on-surface-variant">You've saved 2.1kg of travel emissions this week!</p>
-                                </div>
-                            </div>
-                            <div class="bg-surface-container-lowest p-md rounded-2xl flex gap-md items-start shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-transparent hover:border-primary/10" onclick="triggerLogModal('energy', 'Smart Plug Optimization', 0.8)">
-                                <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-secondary">power_settings_new</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-md text-on-surface font-semibold text-sm">Smart Plug Optimization</p>
-                                    <p class="font-body-md text-xs text-on-surface-variant">Evening idle usage reduced by 15% across home devices.</p>
-                                </div>
+                        <div class="space-y-md" id="ai-insights-list">
+                            <div class="bg-surface-container-lowest p-md rounded-2xl flex gap-md items-center justify-center text-center text-xs text-on-surface-variant h-24">
+                                <p>Fill in the form and click Calculate to fetch AI emission reduction insights.</p>
                             </div>
                         </div>
                     </section>
-                </aside>
-            </div>
-            
-            <!-- Category Breakdown Grid -->
-            <section class="mt-xl">
-                <div class="flex items-baseline justify-between mb-lg">
-                    <h2 class="font-headline-lg text-headline-lg text-on-background font-bold">Category Breakdown</h2>
-                    <button class="font-label-md text-primary flex items-center gap-xs hover:underline underline-offset-4 text-sm font-semibold" onclick="switchTab('actions')">
-                        Detailed View <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg">
-                    <!-- Transport Card -->
-                    <article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:-translate-y-1 transition-all duration-300 group border border-transparent hover:border-primary/10">
-                        <div class="flex justify-between items-start mb-xl">
-                            <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
-                                <span class="material-symbols-outlined text-primary text-[28px]">commute</span>
-                            </div>
-                            <span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg text-xs font-medium">32% of total</span>
-                        </div>
-                        <div>
-                            <h4 class="font-headline-md text-on-surface mb-xs font-bold text-lg">Transport</h4>
-                            <div class="flex items-baseline gap-xs">
-                                <span id="breakdown-val-transport" class="font-display-lg text-[32px] text-primary font-bold">237</span>
-                                <span class="font-label-sm text-on-surface-variant text-xs">kg</span>
-                            </div>
-                            <div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
-                                <div id="breakdown-bar-transport" class="h-full bg-primary-container rounded-full transition-all duration-500" style="width: 75%;"></div>
-                            </div>
-                            <p class="mt-sm font-label-sm text-on-surface-variant text-right text-[10px] font-medium">Trend: -12% vs last mo</p>
-                        </div>
-                    </article>
-                    
-                    <!-- Food Card -->
-                    <article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:-translate-y-1 transition-all duration-300 group border border-transparent hover:border-primary/10">
-                        <div class="flex justify-between items-start mb-xl">
-                            <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
-                                <span class="material-symbols-outlined text-primary text-[28px]">restaurant</span>
-                            </div>
-                            <span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg text-xs font-medium">28% of total</span>
-                        </div>
-                        <div>
-                            <h4 class="font-headline-md text-on-surface mb-xs font-bold text-lg">Food</h4>
-                            <div class="flex items-baseline gap-xs">
-                                <span id="breakdown-val-food" class="font-display-lg text-[32px] text-primary font-bold">208</span>
-                                <span class="font-label-sm text-on-surface-variant text-xs">kg</span>
-                            </div>
-                            <div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
-                                <div id="breakdown-bar-food" class="h-full bg-primary-container rounded-full transition-all duration-500" style="width: 62%;"></div>
-                            </div>
-                            <p class="mt-sm font-label-sm text-on-surface-variant text-right text-[10px] font-medium">Trend: +4% vs last mo</p>
-                        </div>
-                    </article>
-                    
-                    <!-- Home Card -->
-                    <article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:-translate-y-1 transition-all duration-300 group border border-transparent hover:border-primary/10">
-                        <div class="flex justify-between items-start mb-xl">
-                            <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
-                                <span class="material-symbols-outlined text-primary text-[28px]">home</span>
-                            </div>
-                            <span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg text-xs font-medium">24% of total</span>
-                        </div>
-                        <div>
-                            <h4 class="font-headline-md text-on-surface mb-xs font-bold text-lg">Home</h4>
-                            <div class="flex items-baseline gap-xs">
-                                <span id="breakdown-val-home" class="font-display-lg text-[32px] text-primary font-bold">178</span>
-                                <span class="font-label-sm text-on-surface-variant text-xs">kg</span>
-                            </div>
-                            <div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
-                                <div id="breakdown-bar-home" class="h-full bg-primary-container rounded-full transition-all duration-500" style="width: 48%;"></div>
-                            </div>
-                            <p class="mt-sm font-label-sm text-on-surface-variant text-right text-[10px] font-medium">Trend: -18% vs last mo</p>
-                        </div>
-                    </article>
-                    
-                    <!-- Shopping Card -->
-                    <article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:-translate-y-1 transition-all duration-300 group border border-transparent hover:border-primary/10">
-                        <div class="flex justify-between items-start mb-xl">
-                            <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
-                                <span class="material-symbols-outlined text-primary text-[28px]">shopping_bag</span>
-                            </div>
-                            <span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg text-xs font-medium">16% of total</span>
-                        </div>
-                        <div>
-                            <h4 class="font-headline-md text-on-surface mb-xs font-bold text-lg">Shopping</h4>
-                            <div class="flex items-baseline gap-xs">
-                                <span id="breakdown-val-shopping" class="font-display-lg text-[32px] text-primary font-bold">119</span>
-                                <span class="font-label-sm text-on-surface-variant text-xs">kg</span>
-                            </div>
-                            <div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
-                                <div id="breakdown-bar-shopping" class="h-full bg-primary-container rounded-full transition-all duration-500" style="width: 35%;"></div>
-                            </div>
-                            <p class="mt-sm font-label-sm text-on-surface-variant text-right text-[10px] font-medium">Trend: -2% vs last mo</p>
-                        </div>
-                    </article>
-                </div>
-            </section>
-            
-            <!-- Quick Log Panel -->
-            <section class="mt-xl mb-3xl">
-                <div class="bg-surface-container-highest rounded-3xl p-xl flex flex-col md:flex-row items-center gap-xl border border-primary/5">
-                    <div class="flex-1">
-                        <h3 class="font-headline-md text-on-surface mb-sm font-bold text-xl">Log an Emission Action</h3>
-                        <p class="font-body-md text-on-surface-variant text-sm">Just finished a walk? Bought local produce? Record it now to see your live score improve.</p>
-                    </div>
-                    <div class="flex flex-wrap gap-md shrink-0">
-                        <button class="bg-primary text-white px-6 py-3.5 rounded-full font-label-md shadow-lg active:scale-95 transition-all hover:bg-primary-fixed-dim hover:text-on-primary-fixed text-xs font-bold" onclick="triggerLogModal('transport', 'Clean Commute Drive/Ride', 1.5)">
-                            + Log Travel
-                        </button>
-                        <button class="bg-surface-container-lowest text-primary border border-primary/20 px-6 py-3.5 rounded-full font-label-md active:scale-95 transition-all hover:bg-secondary-container text-xs font-bold" onclick="triggerLogModal('shopping', 'Conscious Local Purchase', 0.5)">
-                            + Log Purchase
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- 3. ACTIONS VIEW (MY ACTION PLAN) -->
-        <div id="view-actions" class="tab-content">
-            <!-- Hero Banner -->
-            <section class="relative w-full h-[240px] rounded-3xl overflow-hidden mb-xl shadow-lg">
-                <img alt="Forest canopy hero" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo14QvQbIiKPoUPnwZvnkpKW3jYr6Cn2cn-e58eul3WBd6YTPDEjLVFkz9XiWFcloMfGmiTxcs7hUDeEdwRKu81oWPKhLsSgfMtemC0ojOarYeq3IXeRPJnMWfEgdD1XT82OvXbyFal25_XCgAMyiKtohh39rK2yyNhmBcZhE39MmmFzN8Y5keey9mcCcO-lO_oNz8mOy-hK20-WrhKYTjHonA6C1i97sfOnVQmiYrYk5366_fRO8944MwQKBKdh1woALjvYQjemQ"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-xl">
-                    <h2 class="font-display-lg text-[32px] md:text-[40px] text-white mb-2 font-bold leading-none">My Action Plan</h2>
-                    <p class="font-body-lg text-white/90 text-sm md:text-base max-w-lg">Turning awareness into climate impact, one habit at a time.</p>
-                </div>
-            </section>
-            
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
-                <!-- LEFT COLUMN: Tasks Checklist -->
-                <div class="md:col-span-8 space-y-lg">
-                    <section>
-                        <div class="flex items-center justify-between mb-md">
-                            <h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm font-bold text-xl">
-                                <span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">bolt</span>
-                                Quick Wins
-                            </h3>
-                            <span id="pending-tasks-count" class="text-label-md font-label-md text-on-surface-variant text-xs font-semibold">4 Tasks Pending</span>
-                        </div>
-                        
-                        <!-- Dynamic Checklist Target -->
-                        <div id="checklist-container" class="space-y-sm">
-                            <!-- Tasks loaded dynamically in JS -->
-                        </div>
-                    </section>
-                    
-                    <!-- Life Shifts Section -->
-                    <section class="mt-xl">
-                        <div class="flex items-center justify-between mb-md">
-                            <h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm font-bold text-xl">
-                                <span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">eco</span>
-                                Life Shifts
-                            </h3>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
-                            <!-- Shift 1 -->
-                            <div class="bg-white rounded-3xl p-lg shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between" onclick="triggerShiftDialog('EV Transition', 'transit', 250)">
-                                <div>
-                                    <div class="w-12 h-12 rounded-2xl bg-tertiary-fixed mb-md flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-tertiary text-[28px]">electric_car</span>
-                                    </div>
-                                    <h4 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors font-bold text-lg">Switch to EV</h4>
-                                    <p class="font-body-md text-sm text-on-surface-variant mb-6">Reduce transit emissions by up to 80% with an electric vehicle.</p>
-                                </div>
-                                <div class="flex items-center justify-between mt-auto">
-                                    <span class="text-xs font-semibold text-primary">In Planning</span>
-                                    <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Shift 2 -->
-                            <div class="bg-white rounded-3xl p-lg shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between" onclick="triggerShiftDialog('Solar Installation', 'energy', 320)">
-                                <div>
-                                    <div class="w-12 h-12 rounded-2xl bg-primary-fixed mb-md flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-primary text-[28px]">solar_power</span>
-                                    </div>
-                                    <h4 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors font-bold text-lg">Solar Installation</h4>
-                                    <p class="font-body-md text-sm text-on-surface-variant mb-6">Zero-carbon home energy for the next 25 years.</p>
-                                </div>
-                                <div class="flex items-center justify-between mt-auto">
-                                    <span class="text-xs font-semibold text-on-surface-variant">Recommended</span>
-                                    <span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                
-                <!-- RIGHT COLUMN: Impact goals and insights -->
-                <aside class="md:col-span-4 space-y-lg">
-                    <!-- Impact Goal Section -->
-                    <div class="bg-primary-container rounded-3xl p-lg text-on-primary-container relative overflow-hidden shadow-lg border border-primary/5">
-                        <div class="relative z-10">
-                            <h3 class="font-headline-md text-headline-md font-bold text-xl mb-4 text-white">Impact Goal</h3>
-                            <div class="flex flex-col items-center py-4">
-                                <div class="relative w-32 h-32 mb-md">
-                                    <svg class="w-full h-full" viewbox="0 0 100 100">
-                                        <circle class="text-white/20 stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="10"></circle>
-                                        <circle id="goal-progress-ring" class="text-white progress-ring-circle stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-dasharray="251.2" stroke-dashoffset="80" stroke-linecap="round" stroke-width="10"></circle>
-                                    </svg>
-                                    <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
-                                        <span id="goal-progress-percent" class="font-headline-md text-xl font-bold leading-none">68%</span>
-                                        <span class="text-[9px] opacity-80 uppercase tracking-widest font-semibold mt-1">Tracked</span>
-                                    </div>
-                                </div>
-                                <p class="text-center font-body-md text-sm text-white/90 px-md" id="goal-offset-hint">You're 240kg away from your offset goal!</p>
-                            </div>
-                            <button class="w-full bg-white text-primary font-label-md text-xs font-bold py-3.5 rounded-2xl mt-md active:scale-95 transition-transform" onclick="triggerOptimizeGoal()">
-                                Optimize Goal
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Weekly Insight Article -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] group cursor-pointer border border-transparent hover:border-secondary-container transition-all" onclick="showArticleModal('The Hidden Cost of Cloud Storage', 'Did you know that digital clutter contributes to about 4% of global greenhouse emissions? Processing, indexing, and storing unused emails, old backups, and redundant server snapshots consumes massive data center electricity. Clearing 10GB of useless cloud backups can save up to 2kg of CO2 equivalent emissions per year. Make digital decluttering a monthly habit!')">
-                        <div class="h-44 relative overflow-hidden">
-                            <img alt="Insight image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJBiqWnNMicoEylEhxqUQ8aKV0JYU8mlXx_q8N-jiG028F47pbGDve_6UndLnvElekAazwbtUAwniQgtNLszcZeJw7ZLOQrGzie6_T9_Tfy_swUuv0VIuY1GgTUdIPf0sw8HmutW0oNN5wRXByyYlqxCJvqZEaM4Hu9t_7AeCfwuXHs2A1SAhFfcZjsUsC8lrZJZx7iaXomZymy5BcLQuAXz5kQm2mtiyS7xXK_FCfKndGICG3jrJDd61_hFJ9-yWIjCrCuIo53XE"/>
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-white/90 backdrop-blur-md text-primary font-label-md text-xs font-bold px-3 py-1 rounded-full">Weekly Insight</span>
-                            </div>
-                        </div>
-                        <div class="p-lg">
-                            <h4 class="font-headline-md text-headline-md text-on-surface font-bold text-base mb-2">The Hidden Cost of Cloud Storage</h4>
-                            <p class="font-body-md text-xs text-on-surface-variant mb-md line-clamp-2">How your digital clutter is contributing to global carbon emissions and how to fix it.</p>
-                            <div class="flex items-center gap-xs text-primary font-label-md text-xs font-bold">
-                                <span>Read 5 min article</span>
-                                <span class="material-symbols-outlined text-[16px]">open_in_new</span>
-                            </div>
-                        </div>
-                    </div>
                 </aside>
             </div>
         </div>
 
-        <!-- 4. COMMUNITY VIEW -->
-        <div id="view-community" class="tab-content">
-            <!-- Welcome Header -->
-            <section class="mb-xl">
-                <h1 class="font-display-lg text-[32px] md:text-[40px] text-on-background font-bold leading-none mb-sm">Community Hub</h1>
-                <p class="font-body-lg text-on-surface-variant text-sm md:text-base max-w-2xl">Join thousands of Eco-Guardians making a tangible difference. Track challenges, share progress, and climb the leaderboard.</p>
-            </section>
-            
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
-                <!-- Left & Center: Challenges and Activity -->
-                <div class="col-span-12 lg:col-span-8 space-y-lg">
-                    <!-- Challenges Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-                        <!-- Feature Challenge -->
-                        <div class="md:col-span-2 relative group overflow-hidden rounded-3xl bg-primary shadow-xl h-[280px]">
-                            <div class="absolute inset-0 bg-gradient-to-t from-primary/95 to-transparent z-10"></div>
-                            <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC-YIkQdQClRKj0NAliWRH1bwx9fZO5Rx6t04ucvtH9DVVLlZScl2_bYxzbb6Bnc3FrHfhUa-oMX4KLC4UGRdDXw5DzuwudYTtEf4ogw09nIW4lwajIl819OjDuxG-dT9ut8lcmPGKoqAKr4Z0klP53PtQzflg6a6ZfFxCytG8io86LAeBygYDAsQHB5RdMo9IvAXAojEOwUsLgIuLhlQyXxwg-s_35LAtIh1rWjfnZfQsyEurVgARq3yNE8Sb2ateDmkSKJD1Ysw"/>
-                            <div class="absolute bottom-0 left-0 p-lg z-20 w-full">
-                                <span class="bg-tertiary-container text-on-tertiary-container font-label-sm text-[10px] font-bold px-3 py-1 rounded-full mb-md inline-block">LIVE NOW</span>
-                                <h2 class="font-headline-lg text-2xl text-white font-bold mb-xs">Zero Waste Week</h2>
-                                <p class="text-primary-fixed font-body-md text-xs mb-md max-w-xl">Reduce your landfill contribution to zero. Join 12.4k others in the ultimate sustainability sprint.</p>
-                                <button id="btn-join-waste-challenge" class="bg-white text-primary px-6 py-2.5 rounded-full font-label-md text-xs font-bold active:scale-95 transition-all shadow-lg hover:shadow-primary/30" onclick="joinWasteSprint()">Join Challenge</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Challenge 1 -->
-                        <div class="bg-surface-container-low p-lg rounded-3xl border border-white flex flex-col justify-between hover:shadow-lg transition-all">
-                            <div>
-                                <div class="w-12 h-12 bg-primary-container/30 text-primary rounded-2xl flex items-center justify-center mb-md">
-                                    <span class="material-symbols-outlined text-xl">directions_bike</span>
-                                </div>
-                                <h3 class="font-headline-md text-on-background mb-xs font-bold text-lg">Urban Cyclist</h3>
-                                <p class="font-body-md text-xs text-on-surface-variant">Log 50km of bike commutes this month to unlock the 'Wind Rider' badge.</p>
-                            </div>
-                            <div class="mt-xl">
-                                <div class="flex justify-between text-[11px] font-semibold mb-xs">
-                                    <span class="text-on-surface-variant">4.2k Active</span>
-                                    <span class="text-primary" id="bike-challenge-pct">68% Goal</span>
-                                </div>
-                                <div class="h-2 w-full bg-secondary-container rounded-full overflow-hidden">
-                                    <div id="bike-challenge-bar" class="h-full bg-primary-container w-[68%] rounded-full transition-all duration-500"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Challenge 2 -->
-                        <div class="bg-surface-container-low p-lg rounded-3xl border border-white flex flex-col justify-between hover:shadow-lg transition-all">
-                            <div>
-                                <div class="w-12 h-12 bg-tertiary-fixed/30 text-tertiary rounded-2xl flex items-center justify-center mb-md">
-                                    <span class="material-symbols-outlined text-xl">compost</span>
-                                </div>
-                                <h3 class="font-headline-md text-on-background mb-xs font-bold text-lg">Compost Hero</h3>
-                                <p class="font-body-md text-xs text-on-surface-variant">Start your home composting journey. Beginner friendly guides included.</p>
-                            </div>
-                            <div class="mt-xl">
-                                <button id="btn-enroll-compost" class="w-full border-2 border-primary text-primary px-md py-2.5 rounded-full font-label-md text-xs font-bold hover:bg-primary hover:text-white transition-all" onclick="enrollCompost()">Enroll Now</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Activity Stream -->
-                    <div class="space-y-md">
-                        <div class="flex items-center justify-between">
-                            <h2 class="font-headline-md text-lg font-bold">Activity Stream</h2>
-                            <button class="text-primary font-label-md text-xs font-bold flex items-center gap-xs">
-                                Latest <span class="material-symbols-outlined text-sm">expand_more</span>
-                            </button>
-                        </div>
-                        
-                        <!-- Post Input -->
-                        <div class="bg-white p-md rounded-3xl shadow-sm border border-surface-container-high flex items-center gap-md">
-                            <div class="w-10 h-10 rounded-full bg-secondary-fixed shrink-0 overflow-hidden">
-                                <img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG9wDDpdFN3JkkOKSU_rzhggUyyxkk6vxVPZ74IX8jClYZLeSTmCbjXTOnEOt4Kyu4wctoxsMZnUUzkkJAqFUD9AZwbBTLQZVj6T1TetN-4g4Bc4uo6-FyxC8yz1luMPnXA6TRwHoVZnxJUrOnKc_6fU8QKeSovQMs40eO0ipBXuDLY8EJJ4O7mdKgDOD9cWNfr60fi-kRfFYVZDUoTPurh--_5-PfcTjFscJ8pMNtjxJwhgJGzZYXOOPpRfcJQw15tUyrgk1D3c4"/>
-                            </div>
-                            <input id="post-input" class="flex-grow bg-surface border-none rounded-2xl px-md py-2.5 focus:outline-none focus:ring-2 focus:ring-primary-container text-xs" placeholder="Share your green win today..." type="text"/>
-                            <button class="bg-primary text-white p-2.5 rounded-2xl active:scale-95 transition-all flex items-center justify-center shrink-0" onclick="submitUserPost()">
-                                <span class="material-symbols-outlined text-lg">send</span>
-                            </button>
-                        </div>
-                        
-                        <!-- Activity Stream Post Target -->
-                        <div id="activity-posts" class="space-y-md">
-                            <!-- Posts loaded dynamically -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- RIGHT COLUMN: Leaderboard & Meetups -->
-                <aside class="col-span-12 lg:col-span-4 space-y-lg">
-                    <!-- Leaderboard -->
-                    <div class="bg-white rounded-3xl shadow-sm border border-surface-container-high overflow-hidden">
-                        <div class="p-lg bg-surface-container-low border-b border-surface-container-high">
-                            <h3 class="font-headline-md text-on-background font-bold text-base">Leaderboard</h3>
-                            <p class="text-[11px] text-on-surface-variant">This Month's Top Contributors</p>
-                        </div>
-                        <div class="p-md space-y-md" id="leaderboard-container">
-                            <!-- Leaderboard ranks loaded dynamically -->
-                        </div>
-                    </div>
-                    
-                    <!-- Community Impact Stats -->
-                    <div class="bg-primary p-lg rounded-3xl shadow-xl text-white relative overflow-hidden group border border-primary/5">
-                        <div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"></div>
-                        <h3 class="font-headline-md text-white font-bold text-base mb-md">Community Impact</h3>
-                        <div class="space-y-lg">
-                            <div class="flex items-center gap-md">
-                                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white shrink-0">
-                                    <span class="material-symbols-outlined">cloud_off</span>
-                                </div>
-                                <div>
-                                    <p class="text-base font-bold" id="community-co2-display">42.5 Tons</p>
-                                    <p class="text-[10px] text-primary-fixed font-semibold">CO2 Offset Together</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-md">
-                                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white shrink-0">
-                                    <span class="material-symbols-outlined">water_drop</span>
-                                </div>
-                                <div>
-                                    <p class="text-base font-bold">1.2M Liters</p>
-                                    <p class="text-[10px] text-primary-fixed font-semibold">Water Saved Community-wide</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-xl pt-lg border-t border-white/10">
-                            <p class="font-label-sm text-[10px] text-primary-fixed font-semibold">Next Milestone: 50 Tons CO2</p>
-                            <div class="h-1.5 w-full bg-white/20 rounded-full mt-sm overflow-hidden">
-                                <div class="h-full bg-white w-4/5 rounded-full transition-all duration-500"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Local Meetups -->
-                    <div class="bg-surface-container-high p-lg rounded-3xl border border-white/50">
-                        <h3 class="font-label-md text-on-surface mb-md font-bold text-sm">Local Meetups</h3>
-                        <div class="space-y-md">
-                            <div class="bg-white p-sm rounded-2xl flex items-center gap-md shadow-sm border border-surface-container">
-                                <div class="w-12 h-12 rounded-xl bg-secondary-container flex flex-col items-center justify-center text-primary leading-none shrink-0">
-                                    <span class="text-[10px] font-bold">OCT</span>
-                                    <span class="text-sm font-bold mt-0.5">14</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-md text-on-background text-sm font-bold">Beach Cleanup</p>
-                                    <p class="text-[10px] text-on-surface-variant">Sunset Bay · 09:00 AM</p>
-                                </div>
-                            </div>
-                            <div class="bg-white p-sm rounded-2xl flex items-center gap-md shadow-sm border border-surface-container">
-                                <div class="w-12 h-12 rounded-xl bg-secondary-container flex flex-col items-center justify-center text-primary leading-none shrink-0">
-                                    <span class="text-[10px] font-bold">OCT</span>
-                                    <span class="text-sm font-bold mt-0.5">18</span>
-                                </div>
-                                <div>
-                                    <p class="font-label-md text-on-background text-sm font-bold">Urban Garden Tour</p>
-                                    <p class="text-[10px] text-on-surface-variant">Central Park · 04:00 PM</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-            </div>
-        </div>
+
 
     </main>
 
@@ -904,14 +539,6 @@
         <button id="mobile-nav-btn-dashboard" class="nav-tab-mobile flex flex-col items-center justify-center text-on-surface-variant transition-colors" onclick="switchTab('dashboard')">
             <span class="material-symbols-outlined">dashboard</span>
             <span class="font-label-sm text-[10px] font-semibold mt-1">Dashboard</span>
-        </button>
-        <button id="mobile-nav-btn-actions" class="nav-tab-mobile flex flex-col items-center justify-center text-on-surface-variant transition-colors" onclick="switchTab('actions')">
-            <span class="material-symbols-outlined">eco</span>
-            <span class="font-label-sm text-[10px] font-semibold mt-1">Actions</span>
-        </button>
-        <button id="mobile-nav-btn-community" class="nav-tab-mobile flex flex-col items-center justify-center text-on-surface-variant transition-colors" onclick="switchTab('community')">
-            <span class="material-symbols-outlined">group</span>
-            <span class="font-label-sm text-[10px] font-semibold mt-1">Community</span>
         </button>
     </nav>
 
