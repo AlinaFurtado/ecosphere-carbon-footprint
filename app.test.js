@@ -103,3 +103,90 @@ test('getLocalFallbackInsights returns valid tips based on high categories', (t)
   assert.ok(categories.includes('transport'));
   assert.ok(categories.includes('diet'));
 });
+
+test('calculateLocalFallback handles zero/empty inputs gracefully', (t) => {
+  const zeroInputs = {
+    transport_km_car_petrol: 0,
+    transport_km_car_diesel: 0,
+    transport_km_car_electric: 0,
+    transport_km_bus: 0,
+    transport_km_train: 0,
+    flights_short_haul: 0,
+    flights_long_haul: 0,
+    diet_type: undefined,
+    consumption_level: undefined,
+    home_electricity_kwh: 0,
+    home_gas_kwh: 0,
+    household_size: 0
+  };
+
+  const result = calculateLocalFallback(zeroInputs);
+  assert.ok(result.total_kg > 0); // Diet and consumption default to medium if undefined
+  assert.strictEqual(result.breakdown.transport, 0);
+  assert.strictEqual(result.breakdown.home, 0);
+});
+
+test('calculateLocalFallback handles negative values safely', (t) => {
+  const negativeInputs = {
+    transport_km_car_petrol: -100,
+    transport_km_car_diesel: -50,
+    transport_km_car_electric: -10,
+    transport_km_bus: -5,
+    transport_km_train: -2,
+    flights_short_haul: -1,
+    flights_long_haul: -2,
+    diet_type: 'vegan',
+    consumption_level: 'low',
+    home_electricity_kwh: -500,
+    home_gas_kwh: -200,
+    household_size: -2
+  };
+
+  const result = calculateLocalFallback(negativeInputs);
+  // Assert calculations do not throw or divide-by-zero crash
+  assert.ok(!isNaN(result.total_kg));
+  assert.ok(!isNaN(result.breakdown.home));
+});
+
+test('calculateLocalFallback handles household size division-by-zero protection', (t) => {
+  const zeroHouseholdInput = {
+    home_electricity_kwh: 1000,
+    home_gas_kwh: 500,
+    household_size: 0
+  };
+
+  const result = calculateLocalFallback(zeroHouseholdInput);
+  // Household size defaults to 1 when 0 or falsy, so home energy calculation is (1000*0.35 + 500*0.2) / 1 = 450
+  assert.strictEqual(result.breakdown.home, 450);
+});
+
+test('calculateLocalFallback handles extremely large input values safely', (t) => {
+  const largeInputs = {
+    transport_km_car_petrol: 99999999,
+    flights_long_haul: 999999,
+    diet_type: 'meat_heavy',
+    consumption_level: 'high',
+    home_electricity_kwh: 99999999,
+    household_size: 1
+  };
+
+  const result = calculateLocalFallback(largeInputs);
+  assert.ok(result.total_kg > 10000000);
+  assert.ok(isFinite(result.total_kg));
+});
+
+test('getLocalFallbackInsights returns only default tips when all categories are low', (t) => {
+  const lowResult = {
+    total_kg: 1000,
+    breakdown: {
+      transport: 100,
+      food: 100,
+      home: 100,
+      shopping: 100
+    }
+  };
+
+  const insightsRes = getLocalFallbackInsights(lowResult);
+  assert.strictEqual(insightsRes.insights.length, 1);
+  assert.strictEqual(insightsRes.insights[0].category, 'home');
+});

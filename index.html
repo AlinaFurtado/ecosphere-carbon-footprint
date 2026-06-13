@@ -114,6 +114,8 @@
     <link href="style.css" rel="stylesheet"/>
 </head>
 <body class="font-body-md overflow-x-hidden min-h-screen flex flex-col pb-24 md:pb-0">
+    <!-- Skip to content link for accessibility -->
+    <a href="#calculator-form" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-xl z-[100] font-bold text-xs">Skip to main content</a>
 
     <!-- Top Navigation Header -->
     <header class="bg-surface shadow-sm w-full top-0 sticky z-50">
@@ -266,11 +268,11 @@
                     
                     <form id="calculator-form" onsubmit="event.preventDefault(); calculateUserFootprint();" class="space-y-xl">
                         <!-- 1. Travel & Transit -->
-                        <div>
-                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
-                                <span class="material-symbols-outlined text-base">directions_car</span>
+                        <fieldset class="border-0 p-0 m-0">
+                            <legend class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base" aria-hidden="true">directions_car</span>
                                 Travel & Transit (Annual km)
-                            </h3>
+                            </legend>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
                                 <div>
                                     <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-car-petrol">Petrol or Hybrid Car</label>
@@ -293,14 +295,14 @@
                                     <input type="number" id="input-train" min="0" value="2000" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
 
                         <!-- 2. Flights -->
-                        <div>
-                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
-                                <span class="material-symbols-outlined text-base">flight</span>
+                        <fieldset class="border-0 p-0 m-0">
+                            <legend class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base" aria-hidden="true">flight</span>
                                 Aviation & Flights (Annual Count)
-                            </h3>
+                            </legend>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
                                 <div>
                                     <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-flights-short">Short-haul Flights (&lt; 3 hours)</label>
@@ -311,14 +313,14 @@
                                     <input type="number" id="input-flights-long" min="0" value="0" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
 
                         <!-- 3. Diet & Consumption -->
-                        <div>
-                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
-                                <span class="material-symbols-outlined text-base">restaurant</span>
+                        <fieldset class="border-0 p-0 m-0">
+                            <legend class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base" aria-hidden="true">restaurant</span>
                                 Dietary & Spending Habits
-                            </h3>
+                            </legend>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
                                 <div>
                                     <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-diet">Dietary Pattern</label>
@@ -338,14 +340,14 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
 
                         <!-- 4. Home Energy -->
-                        <div>
-                            <h3 class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
-                                <span class="material-symbols-outlined text-base">home</span>
+                        <fieldset class="border-0 p-0 m-0">
+                            <legend class="font-headline-md text-sm font-bold text-primary flex items-center gap-2 mb-md">
+                                <span class="material-symbols-outlined text-base" aria-hidden="true">home</span>
                                 Household Energy Consumption
-                            </h3>
+                            </legend>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
                                 <div>
                                     <label class="block text-[11px] font-semibold text-on-surface-variant mb-1" for="input-energy-electricity">Electricity (Annual kWh)</label>
@@ -360,7 +362,7 @@
                                     <input type="number" id="input-household-size" min="1" value="2" class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-primary" />
                                 </div>
                             </div>
-                        </div>
+                        </fieldset>
 
                         <!-- Submit Button -->
                         <div class="pt-lg border-t border-surface-variant/30 flex justify-between items-center">
