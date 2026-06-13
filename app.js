@@ -24,20 +24,22 @@ let state = { ...DEFAULT_STATE };
 
 // Load saved state if present in localStorage
 try {
-  const localCache = localStorage.getItem('ecosphere_cached_state');
-  if (localCache) {
-    const loaded = JSON.parse(localCache);
-    state = {
-      ...DEFAULT_STATE,
-      ...loaded,
-      user: { ...DEFAULT_STATE.user, ...(loaded && loaded.user) },
-      footprint: {
-        ...DEFAULT_STATE.footprint,
-        ...(loaded && loaded.footprint),
-        breakdown: { ...DEFAULT_STATE.footprint.breakdown, ...(loaded && loaded.footprint && loaded.footprint.breakdown) }
-      },
-      insights: (loaded && loaded.insights) || []
-    };
+  if (typeof localStorage !== 'undefined') {
+    const localCache = localStorage.getItem('ecosphere_cached_state');
+    if (localCache) {
+      const loaded = JSON.parse(localCache);
+      state = {
+        ...DEFAULT_STATE,
+        ...loaded,
+        user: { ...DEFAULT_STATE.user, ...(loaded && loaded.user) },
+        footprint: {
+          ...DEFAULT_STATE.footprint,
+          ...(loaded && loaded.footprint),
+          breakdown: { ...DEFAULT_STATE.footprint.breakdown, ...(loaded && loaded.footprint && loaded.footprint.breakdown) }
+        },
+        insights: (loaded && loaded.insights) || []
+      };
+    }
   }
 } catch (err) {
   console.warn("Could not read state from localStorage, using defaults.", err);
@@ -83,19 +85,23 @@ function switchTab(tabId) {
   // Update desktop navigation button active styling
   document.querySelectorAll('.nav-tab').forEach(btn => {
     btn.className = "nav-tab font-label-md text-label-md flex items-center gap-sm text-on-surface-variant hover:bg-secondary-container/50 transition-colors rounded-full px-4 py-1.5 active:scale-95";
+    btn.setAttribute('aria-selected', 'false');
   });
   const activeDesktopBtn = document.getElementById(`nav-btn-${tabId}`);
   if (activeDesktopBtn) {
     activeDesktopBtn.className = "nav-tab font-label-md text-label-md flex items-center gap-sm bg-primary-container text-on-primary-container rounded-full px-4 py-1.5 active:scale-95 transition-transform duration-200";
+    activeDesktopBtn.setAttribute('aria-selected', 'true');
   }
 
   // Update mobile navigation button active styling
   document.querySelectorAll('.nav-tab-mobile').forEach(btn => {
     btn.className = "nav-tab-mobile flex flex-col items-center justify-center text-on-surface-variant transition-colors";
+    btn.setAttribute('aria-selected', 'false');
   });
   const activeMobileBtn = document.getElementById(`mobile-nav-btn-${tabId}`);
   if (activeMobileBtn) {
     activeMobileBtn.className = "nav-tab-mobile flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-300";
+    activeMobileBtn.setAttribute('aria-selected', 'true');
   }
 
   // Render updates for specific tabs
@@ -592,16 +598,19 @@ function toggleAIChat() {
   isAIChatOpen = !isAIChatOpen;
   const chatBox = document.getElementById('ai-chat-box');
   const fabIcon = document.getElementById('ai-fab-icon');
+  const fabBtn = document.getElementById('ai-fab-btn');
   
   if (isAIChatOpen) {
     chatBox.classList.remove('scale-0');
     chatBox.classList.add('scale-100');
     fabIcon.textContent = 'chat_bubble';
+    if (fabBtn) fabBtn.setAttribute('aria-expanded', 'true');
     renderChatMessages();
   } else {
     chatBox.classList.remove('scale-100');
     chatBox.classList.add('scale-0');
     fabIcon.textContent = 'eco';
+    if (fabBtn) fabBtn.setAttribute('aria-expanded', 'false');
   }
 }
 
@@ -702,8 +711,19 @@ function generateAIResponse(input) {
 }
 
 // --- BOOTSTRAP INITIALIZATION ---
-window.addEventListener('DOMContentLoaded', () => {
-  renderDashboard();
-  renderWorld();
-  switchTab(activeTab);
-});
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    renderDashboard();
+    renderWorld();
+    switchTab(activeTab);
+  });
+}
+
+// --- MODULE EXPORTS FOR TESTING ---
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    calculateLocalFallback,
+    getLocalFallbackInsights,
+    DEFAULT_STATE
+  };
+}

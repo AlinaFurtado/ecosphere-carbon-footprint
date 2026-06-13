@@ -1,0 +1,16 @@
+{
+  "name": "ecosphere-carbon-footprint",
+  "version": "1.0.0",
+  "description": "Interactive and gamified Carbon Footprint Tracker",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --test app.test.js"
+  },
+  "keywords": [
+    "carbon-footprint",
+    "gemini-ai",
+    "hack2skill"
+  ],
+  "author": "",
+  "license": "ISC"
+}
