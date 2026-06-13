@@ -26,7 +26,18 @@ let state = { ...DEFAULT_STATE };
 try {
   const localCache = localStorage.getItem('ecosphere_cached_state');
   if (localCache) {
-    state = JSON.parse(localCache);
+    const loaded = JSON.parse(localCache);
+    state = {
+      ...DEFAULT_STATE,
+      ...loaded,
+      user: { ...DEFAULT_STATE.user, ...(loaded && loaded.user) },
+      footprint: {
+        ...DEFAULT_STATE.footprint,
+        ...(loaded && loaded.footprint),
+        breakdown: { ...DEFAULT_STATE.footprint.breakdown, ...(loaded && loaded.footprint && loaded.footprint.breakdown) }
+      },
+      insights: (loaded && loaded.insights) || []
+    };
   }
 } catch (err) {
   console.warn("Could not read state from localStorage, using defaults.", err);
