@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Action Plan | EcoSphere</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&amp;family=Plus+Jakarta+Sans:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.8s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#27313e",
+                        "surface-tint": "#006c49",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "on-surface-variant": "#3c4a42",
+                        "surface-container-high": "#dfe9fa",
+                        "on-primary-container": "#00422b",
+                        "primary-fixed-dim": "#4edea3",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#566660",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#ff7e2d",
+                        "secondary-fixed": "#d5e6df",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#4edea3",
+                        "surface-container": "#e5eeff",
+                        "outline": "#6c7a71",
+                        "on-secondary-fixed-variant": "#3b4a44",
+                        "on-tertiary-container": "#622700",
+                        "secondary-container": "#d3e3dc",
+                        "secondary-fixed-dim": "#bacac3",
+                        "primary-container": "#10b981",
+                        "secondary": "#52625c",
+                        "on-secondary-fixed": "#101e1a",
+                        "on-background": "#121c28",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#ffdbca",
+                        "primary": "#006c49",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-primary-fixed": "#002113",
+                        "tertiary": "#9d4300",
+                        "outline-variant": "#bbcabf",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#6ffbbe",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "surface-dim": "#d1dbec",
+                        "on-tertiary-fixed": "#341100",
+                        "on-surface": "#121c28",
+                        "surface-bright": "#f8f9ff",
+                        "surface-variant": "#d9e3f4",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#eef4ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "16px",
+                        "container-padding": "20px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "3xl": "64px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Quicksand"],
+                        "headline-lg": ["Quicksand"],
+                        "display-lg": ["Quicksand"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-2xl">
+<!-- Top Navigation Shell -->
+<header class="w-full top-0 sticky z-50 bg-surface shadow-sm">
+<div class="flex justify-between items-center px-gutter py-md w-full max-w-[1040px] mx-auto">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container">
+<img alt="user profile picture" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a young man with a friendly expression. He is photographed in a bright, modern office with soft natural lighting and a blurred green background, emphasizing an eco-conscious corporate environment. The lighting is high-key and clean, matching a modern light-mode UI aesthetic with vibrant, natural tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAEpRpYopvObpKMtoWuwQar91EIR_F4_RrXveui1-FhvjeaX3TbhYO95fJIR1PNnF5jgBKM09XN7PHFiXYoc4nBkATmf3M8cjwJiT7REVX1X9li0vXfn2lNFWNrWCMq2NioLB-2Q1_Bsg98WVmm0hZmbKXQBcYtkq3izNQUIZPyng0jnWdzJqf2l7oBu3SmCv52ig2FbE9BUMMRTplpnvTU6JkhluRtKIMmaklRQkY6DuRTKGIEhPBIvQ5_8IP0kuszGUOkTpuZII"/>
+</div>
+<h1 class="text-headline-md font-headline-lg text-primary">EcoSphere</h1>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-secondary-container/50 transition-colors px-4 py-2 rounded-full" href="#">World</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-secondary-container/50 transition-colors px-4 py-2 rounded-full" href="#">Dashboard</a>
+<a class="font-label-md text-label-md bg-primary-container text-on-primary-container flex items-center justify-center rounded-full px-4 py-2 active:scale-95 transition-transform duration-200" href="#">Actions</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-secondary-container/50 transition-colors px-4 py-2 rounded-full" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="bg-secondary-container/30 text-primary px-4 py-2 rounded-full font-label-md text-label-md active:scale-95 transition-all">
+                    7 🔥
+                </button>
+</div>
+</div>
+</header>
+<main class="max-w-[1040px] mx-auto px-gutter mt-lg">
+<!-- Hero Banner -->
+<section class="relative w-full h-[320px] rounded-3xl overflow-hidden mb-xl shadow-lg">
+<img alt="Forest canopy hero" class="absolute inset-0 w-full h-full object-cover" data-alt="A breathtaking view looking up through a dense canopy of lush, vibrant green trees in a sun-drenched forest. Beams of golden sunlight filter through the leaves, creating a soft, dreamlike atmosphere with a slight hazy glow. The color palette is dominated by deep forest greens and bright emerald tones, reflecting a modern eco-conscious and optimistic brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo14QvQbIiKPoUPnwZvnkpKW3jYr6Cn2cn-e58eul3WBd6YTPDEjLVFkz9XiWFcloMfGmiTxcs7hUDeEdwRKu81oWPKhLsSgfMtemC0ojOarYeq3IXeRPJnMWfEgdD1XT82OvXbyFal25_XCgAMyiKtohh39rK2yyNhmBcZhE39MmmFzN8Y5keey9mcCcO-lO_oNz8mOy-hK20-WrhKYTjHonA6C1i97sfOnVQmiYrYk5366_fRO8944MwQKBKdh1woALjvYQjemQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-xl">
+<h2 class="font-display-lg text-display-lg text-white mb-2">My Action Plan</h2>
+<p class="font-body-lg text-body-lg text-white/90 max-w-lg">Turning awareness into climate impact, one habit at a time.</p>
+</div>
+</section>
+<!-- Main Layout: Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- LEFT COLUMN: Tasks -->
+<div class="md:col-span-8 space-y-lg">
+<!-- Quick Wins Section -->
+<section>
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                            Quick Wins
+                        </h3>
+<span class="text-label-md font-label-md text-on-surface-variant">4 Tasks Pending</span>
+</div>
+<div class="space-y-sm">
+<!-- Task 1 -->
+<div class="group bg-white rounded-2xl p-md shadow-[0_4px_20px_rgba(0,108,73,0.05)] border border-transparent hover:border-primary/20 transition-all flex items-center justify-between">
+<div class="flex items-center gap-md">
+<button class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center hover:bg-primary-container/20 hover:border-primary transition-all">
+<span class="material-symbols-outlined text-transparent group-hover:text-primary text-[20px]">check</span>
+</button>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Unplug chargers when not in use</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Impact: 5kg CO2e/year</p>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">Energy</span>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="group bg-white rounded-2xl p-md shadow-[0_4px_20px_rgba(0,108,73,0.05)] border border-transparent hover:border-primary/20 transition-all flex items-center justify-between">
+<div class="flex items-center gap-md">
+<button class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-transparent text-[20px]">check</span>
+</button>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Shorten shower by 2 minutes</h4>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Impact: 12kg CO2e/month</p>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">Water</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Life Shifts Section -->
+<section>
+<div class="flex items-center justify-between mb-md mt-xl">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">eco</span>
+                            Life Shifts
+                        </h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<!-- Shift 1 -->
+<div class="bg-white rounded-3xl p-lg shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container hover:shadow-xl transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-fixed mb-md flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[28px]">electric_car</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">Switch to EV</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Reduce transit emissions by up to 80% with an electric vehicle.</p>
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-primary">In Planning</span>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Shift 2 -->
+<div class="bg-white rounded-3xl p-lg shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-surface-container hover:shadow-xl transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-2xl bg-primary-fixed mb-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]">solar_power</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">Solar Installation</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Zero-carbon home energy for the next 25 years.</p>
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-on-surface-variant">Recommended</span>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN: Insights & Goals -->
+<aside class="md:col-span-4 space-y-lg">
+<!-- Impact Goal Section -->
+<div class="bg-primary-container rounded-3xl p-lg text-on-primary-container relative overflow-hidden shadow-lg">
+
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-md">Impact Goal</h3>
+<div class="flex flex-col items-center py-4">
+<div class="relative w-32 h-32 mb-md">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<circle class="text-white/20 stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="10"></circle>
+<circle class="text-white progress-ring-circle stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-dasharray="251.2" stroke-dashoffset="80" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-md text-headline-md leading-none">68%</span>
+<span class="text-label-sm font-label-sm opacity-80">Tracked</span>
+</div>
+</div>
+<p class="text-center font-body-md text-body-md px-md">You're 240kg away from your 2024 offset goal!</p>
+</div>
+<button class="w-full bg-white text-primary font-label-md text-label-md py-3 rounded-2xl mt-md active:scale-95 transition-transform">
+                            Optimize Goal
+                        </button>
+</div>
+</div>
+<!-- Weekly Insight Article -->
+<div class="bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] group cursor-pointer border border-transparent hover:border-secondary-container transition-all">
+<div class="h-48 relative overflow-hidden">
+<img alt="Insight image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A serene mountain landscape featuring jagged, snow-capped peaks against a clear, pale blue sky. The foreground shows a valley of evergreen trees with a soft mist rising from the earth. The light is crisp and cool, with a vibrant yet natural aesthetic that evokes a sense of pristine environmental beauty and clarity, aligning with a high-end eco-conscious UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJBiqWnNMicoEylEhxqUQ8aKV0JYU8mlXx_q8N-jiG028F47pbGDve_6UndLnvElekAazwbtUAwniQgtNLszcZeJw7ZLOQrGzie6_T9_Tfy_swUuv0VIuY1GgTUdIPf0sw8HmutW0oNN5wRXByyYlqxCJvqZEaM4Hu9t_7AeCfwuXHs2A1SAhFfcZjsUsC8lrZJZx7iaXomZymy5BcLQuAXz5kQm2mtiyS7xXK_FCfKndGICG3jrJDd61_hFJ9-yWIjCrCuIo53XE"/>
+<div class="absolute top-4 left-4">
+<span class="bg-white/90 backdrop-blur-md text-primary font-label-md text-label-md px-3 py-1 rounded-full">Weekly Insight</span>
+</div>
+</div>
+<div class="p-lg">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-2">The Hidden Cost of Cloud Storage</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md line-clamp-2">How your digital clutter is contributing to global carbon emissions and how to fix it.</p>
+<div class="flex items-center gap-sm text-primary font-label-md text-label-md">
+<span>Read 5 min article</span>
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</div>
+</div>
+</div>
+<!-- Action Button FAB Context (suppressed on this focused page per guidelines, but keeping it small if needed) -->
+</aside>
+</div>
+</main>
+<!-- Bottom Nav for Mobile Experience (Pivots to top on desktop via hidden md:flex in header) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container shadow-[0_-4px_20px_rgba(0,108,73,0.1)]">
+<div class="flex justify-around items-center h-20 px-4 pb-safe w-full">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+<span class="font-label-sm text-label-sm">World</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="eco" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-label-sm text-label-sm">Actions</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</div>
+</div>
+</nav>
+<script>
+        // Micro-interaction for task completion
+        document.querySelectorAll('.group button').forEach(button => {
+            button.addEventListener('click', function() {
+                const check = this.querySelector('.material-symbols-outlined');
+                const isChecked = this.classList.contains('bg-primary');
+                
+                if (!isChecked) {
+                    this.classList.remove('border-outline-variant');
+                    this.classList.add('bg-primary', 'border-primary');
+                    check.classList.remove('text-transparent');
+                    check.classList.add('text-white');
+                    check.style.fontVariationSettings = "'FILL' 1";
+                } else {
+                    this.classList.add('border-outline-variant');
+                    this.classList.remove('bg-primary', 'border-primary');
+                    check.classList.add('text-transparent');
+                    check.classList.remove('text-white');
+                    check.style.fontVariationSettings = "'FILL' 0";
+                }
+            });
+        });
+
+        // Simple progress ring animation on load
+        window.addEventListener('load', () => {
+            const circle = document.querySelector('.progress-ring-circle');
+            if(circle) {
+                const radius = circle.r.baseVal.value;
+                const circumference = radius * 2 * Math.PI;
+                const offset = circumference - (0.68 * circumference);
+                circle.style.strokeDashoffset = offset;
+            }
+        });
+    </script>
+</body></html>

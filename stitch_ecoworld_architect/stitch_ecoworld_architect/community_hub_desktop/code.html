@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EcoSphere Community Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#27313e",
+                    "surface-tint": "#006c49",
+                    "on-tertiary-fixed-variant": "#783200",
+                    "on-surface-variant": "#3c4a42",
+                    "surface-container-high": "#dfe9fa",
+                    "on-primary-container": "#00422b",
+                    "primary-fixed-dim": "#4edea3",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#566660",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#ff7e2d",
+                    "secondary-fixed": "#d5e6df",
+                    "inverse-on-surface": "#eaf1ff",
+                    "inverse-primary": "#4edea3",
+                    "surface-container": "#e5eeff",
+                    "outline": "#6c7a71",
+                    "on-secondary-fixed-variant": "#3b4a44",
+                    "on-tertiary-container": "#622700",
+                    "secondary-container": "#d3e3dc",
+                    "secondary-fixed-dim": "#bacac3",
+                    "primary-container": "#10b981",
+                    "secondary": "#52625c",
+                    "on-secondary-fixed": "#101e1a",
+                    "on-background": "#121c28",
+                    "error": "#ba1a1a",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed": "#ffdbca",
+                    "primary": "#006c49",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-primary-fixed": "#002113",
+                    "tertiary": "#9d4300",
+                    "outline-variant": "#bbcabf",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#d9e3f4",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#6ffbbe",
+                    "tertiary-fixed-dim": "#ffb690",
+                    "surface-dim": "#d1dbec",
+                    "on-tertiary-fixed": "#341100",
+                    "on-surface": "#121c28",
+                    "surface-bright": "#f8f9ff",
+                    "surface-variant": "#d9e3f4",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#eef4ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "md": "16px",
+                    "container-padding": "20px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "3xl": "64px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "gutter": "16px",
+                    "2xl": "48px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Quicksand"],
+                    "headline-lg": ["Quicksand"],
+                    "display-lg": ["Quicksand"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Quicksand"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            color: #121c28;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 1.5rem;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d3e3dc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Top Navigation Anchor -->
+<header class="w-full top-0 sticky z-50 bg-surface shadow-sm">
+<nav class="flex justify-between items-center px-gutter py-md w-full max-w-[1040px] mx-auto">
+<div class="flex items-center gap-md">
+<span class="text-headline-md font-headline-lg text-primary">EcoSphere</span>
+</div>
+<div class="hidden md:flex items-center space-x-lg">
+<a class="text-on-surface-variant hover:bg-secondary-container/50 transition-colors px-4 py-2 rounded-full font-label-md" href="#">World</a>
+<a class="text-on-surface-variant hover:bg-secondary-container/50 transition-colors px-4 py-2 rounded-full font-label-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:bg-secondary-container/50 transition-colors px-4 py-2 rounded-full font-label-md" href="#">Actions</a>
+<a class="text-primary bg-primary-container/20 px-4 py-2 rounded-full font-label-md" href="#">Community</a>
+</div>
+<div class="flex items-center gap-sm">
+<span class="text-primary font-label-md bg-secondary-container px-3 py-1 rounded-full">7 🔥</span>
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden ring-2 ring-primary-container/30">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmd97mcyzubDrDjMLTEg6UTRlnh0qlgCEzARWvlrOXRKg63rSchzOYy-PClLCoTRWSwv2j1n8n8Xwn8rDBMDZK__XdMvilZl94iq-IJWCULpGSSVoH3rcabLOgE4fKknriN-1VCxGXM6rhN5V1jj0Kqr235guMv-Gb67TzTagn3_QlE2baceTBytA4mxhAd0pko7AhLy2luD9AA2kXX2q8Y4qC-2ALEN5rU-0k5MvizzGPPCmgya6PefKngy8Bqiy-aM5U_nYatro"/>
+</div>
+</div>
+</nav>
+</header>
+<main class="max-w-[1040px] mx-auto px-gutter py-xl">
+<!-- Welcome Header -->
+<section class="mb-2xl">
+<h1 class="font-display-lg text-display-lg text-on-background mb-sm">Community Hub</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Join thousands of Eco-Guardians making a tangible difference. Track challenges, share progress, and climb the leaderboard.</p>
+</section>
+<div class="grid grid-cols-12 gap-lg">
+<!-- Left & Center: Challenges and Activity -->
+<div class="col-span-12 lg:col-span-8 space-y-lg">
+<!-- Bento Challenges Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Feature Challenge (Large) -->
+<div class="md:col-span-2 relative group overflow-hidden rounded-3xl bg-primary shadow-xl h-[320px]">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A lush zero-waste lifestyle flat-lay with reusable glass jars, bamboo cutlery, and organic cotton bags arranged on a clean white wooden table. Bright morning sunlight streams in, highlighting the soft emerald and sage green accents. The aesthetic is high-key, airy, and modern-eco." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC-YIkQdQClRKj0NAliWRH1bwx9fZO5Rx6t04ucvtH9DVVLlZScl2_bYxzbb6Bnc3FrHfhUa-oMX4KLC4UGRdDXw5DzuwudYTtEf4ogw09nIW4lwajIl819OjDuxG-dT9ut8lcmPGKoqAKr4Z0klP53PtQzflg6a6ZfFxCytG8io86LAeBygYDAsQHB5RdMo9IvAXAojEOwUsLgIuLhlQyXxwg-s_35LAtIh1rWjfnZfQsyEurVgARq3yNE8Sb2ateDmkSKJD1Ysw"/>
+<div class="absolute bottom-0 left-0 p-lg z-20 w-full">
+<span class="bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-3 py-1 rounded-full mb-md inline-block">LIVE NOW</span>
+<h2 class="font-headline-lg text-headline-lg text-white mb-sm">Zero Waste Week</h2>
+<p class="text-primary-fixed font-body-md mb-md">Reduce your landfill contribution to zero. Join 12.4k others in the ultimate sustainability sprint.</p>
+<button class="bg-white text-primary px-xl py-md rounded-full font-label-md active:scale-95 transition-all shadow-lg hover:shadow-primary/30">Join Challenge</button>
+</div>
+</div>
+<!-- Secondary Challenge 1 -->
+<div class="bg-surface-container-low p-lg rounded-3xl border border-white flex flex-col justify-between hover:shadow-lg transition-all">
+<div>
+<div class="w-12 h-12 bg-primary-container/30 text-primary rounded-2xl flex items-center justify-center mb-md">
+<span class="material-symbols-outlined">directions_bike</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-xs">Urban Cyclist</h3>
+<p class="font-body-md text-on-surface-variant">Log 50km of bike commutes this month to unlock the 'Wind Rider' badge.</p>
+</div>
+<div class="mt-xl">
+<div class="flex justify-between text-label-sm font-label-sm mb-xs">
+<span class="text-on-surface-variant">4.2k Active</span>
+<span class="text-primary">68% Goal</span>
+</div>
+<div class="h-2 w-full bg-secondary-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[68%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Secondary Challenge 2 -->
+<div class="bg-surface-container-low p-lg rounded-3xl border border-white flex flex-col justify-between hover:shadow-lg transition-all">
+<div>
+<div class="w-12 h-12 bg-tertiary-fixed/30 text-tertiary rounded-2xl flex items-center justify-center mb-md">
+<span class="material-symbols-outlined">compost</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-xs">Compost Hero</h3>
+<p class="font-body-md text-on-surface-variant">Start your home composting journey. Beginner friendly guides included.</p>
+</div>
+<div class="mt-xl">
+<button class="w-full border-2 border-primary text-primary px-md py-sm rounded-full font-label-md hover:bg-primary hover:text-white transition-all">Enroll Now</button>
+</div>
+</div>
+</div>
+<!-- Activity Stream -->
+<div class="space-y-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md">Activity Stream</h2>
+<button class="text-primary font-label-md flex items-center gap-xs">
+                            Latest <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+<!-- Post Input -->
+<div class="bg-white p-md rounded-3xl shadow-sm border border-surface-container-high flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed shrink-0">
+<img alt="User" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn0GFWH2JJIJi4Ke98gucyt8PV7Hu2QMm4hw6WhE7r3TTfmnXgbNtmHC3Nto4Pzq1F4EMONLDzZxt_Tb1p-X1a-q7iT_YiGreivxEF-_eB_uzcXFneCQHOq5MQhaultgWOHT7SIJG1f94JoZ1Urt1XEjzaovjg26pqoF1jYIU63cgDHp9ThUw9QYO26fLWjzxCOG5PVDFOQ6WvSrmYljK_DbmMxS_JMn-WviQNHlzZ5cHXiOfjRShRRaaz8SjptPUZW5PTPNn2lsY"/>
+</div>
+<input class="flex-1 bg-surface border-none rounded-2xl px-md py-sm focus:ring-2 focus:ring-primary-container text-body-md" placeholder="Share your green win today..." type="text"/>
+<button class="bg-primary text-white p-sm rounded-2xl active:scale-95 transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<!-- Post 1 -->
+<div class="bg-white p-lg rounded-3xl shadow-sm border border-surface-container-high space-y-md">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-md">
+<div class="w-11 h-11 rounded-full bg-primary-fixed-dim">
+<img alt="Sasha" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfbvg_y72i1HFJBQVU8j3JdkQPP33-z2wdA6-DoY05QVFKu3ZujV-mIy5tmjs2E19_RscpTBHiQO1bebOru14JU8pTBVDr_bksd0uHO6ocNYELAxb9ium2uQ7knPRnEoao187WRgVNIlGQ4CfT-iG1MnDxtlOR-YaByyt3p8dZPV7qarQYpM-am8wpRAkqy4YTkxcxMgJQyPxEng0ex-1J2if9jKcMHIxJpYRZfaxKbGNNTvkXoR2WlvX4tGtTAFv_tpwnVoLaM-g"/>
+</div>
+<div>
+<h4 class="font-label-md text-on-background">Sasha Green</h4>
+<p class="text-label-sm text-on-surface-variant">2 hours ago · Zero Waste Week</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_horiz</span>
+</div>
+<p class="font-body-md text-on-surface">Successfully finished my first week without single-use plastics! The transition was easier than I thought, especially with the EcoSphere shopping guide. 🌿✨</p>
+<div class="rounded-2xl overflow-hidden aspect-video relative">
+<img class="w-full h-full object-cover" data-alt="A bright, aesthetic kitchen shelf featuring rows of beautifully organized glass pantry jars filled with grains, pasta, and nuts. The sunlight reflects off the clean surfaces, creating an airy, peaceful atmosphere. The color palette is dominated by soft whites and warm wood tones, conveying a successful zero-waste lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQVKfNlES-Sqg4xmzypdG0F-Hrx9K-XidUfYZwPg2N1pZc1IuK2UqDnON3A-vi1XtfGC82mK0PxshR1558mRrq_vp9u5rF9bt3JbmdZoZmJ5kvp41MIXe4u-29b8yS52l6ZTrtBRYNTFh2-T1imq90OghgjrI_mHSWyJZRx2mxjaBWC8z7wmWfcIbIh8uz8VJha_oCtLWHIO_l4IVc2nfGxR0UZqYw907txS1rO9RQbL9eOhDelL9UUebxtKF7Dftf0UrCfTw4z5o"/>
+</div>
+<div class="flex items-center gap-xl pt-sm">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-md">124</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md">18</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors ml-auto">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Leaderboard & Stats -->
+<aside class="col-span-12 lg:col-span-4 space-y-lg">
+<!-- Community Leaderboard -->
+<div class="bg-white rounded-3xl shadow-sm border border-surface-container-high overflow-hidden">
+<div class="p-lg bg-surface-container-low border-b border-surface-container-high">
+<h3 class="font-headline-md text-headline-md text-on-background">Leaderboard</h3>
+<p class="text-label-sm text-on-surface-variant">This Month's Top Contributors</p>
+</div>
+<div class="p-md space-y-md">
+<!-- Rank 1 -->
+<div class="flex items-center gap-md p-sm rounded-2xl bg-primary-container/10 border border-primary-container/20">
+<div class="w-8 font-headline-md text-primary text-center">1</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container ring-2 ring-primary">
+<img alt="User" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxv0_IQoWK7E8sw0Cwj5rj8V7Eg3jzAdoxC0JwNXp9dMI7KYM1xbyxvU0M5GvrcZnfqpnQdgWD4k1py3Mmx60WCK9dzDta1NiNyP-CfMWFVfc3ZkvIdj4bMLoJsdJ5Mwx3DUJwd4nbGNyxC0ShjZiOzjKZow3M7SYPYsi4Ey3ds8_CoXIAmsLhWwzRjqprUTSjq5m2yuNeIfNHz0G-gyq4va7DOHEO6L28xJFdbCfxYbhUkJgnUgNeWRz0ptDenohQ8TJs5zOkldc"/>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-background">Marco V.</p>
+<p class="text-label-sm text-on-surface-variant">2,450 EcoPoints</p>
+</div>
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+<!-- Rank 2 -->
+<div class="flex items-center gap-md p-sm rounded-2xl hover:bg-surface transition-colors">
+<div class="w-8 font-headline-md text-on-surface-variant text-center">2</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container">
+<img alt="User" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNhMoKvzTN-W6Ovdg389pOvjndrzTQjWqrI5Rs5Z7R0905Tx1b51tNSBhk3yPj824OZDNXGhfNu69W40tS89qpLs3qWbSRdQwY2SDmUhXutRYX87-gF3ltnOte9nzrtvSbjYRa4Ncnty8DBJwHAnsUQvDQxqtXbjtAqbuIc1LQZsP4CVNCU7Ikf1_VhAtbBf6G0HiU2RIsM9W1k2fx3LyuUd0zaFwfRPAq5b8r4ef-3LCVTyQw9a_l33ohgZKkAkT0gCp1ITqpNzM"/>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-background">Elena R.</p>
+<p class="text-label-sm text-on-surface-variant">2,120 EcoPoints</p>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex items-center gap-md p-sm rounded-2xl hover:bg-surface transition-colors">
+<div class="w-8 font-headline-md text-on-surface-variant text-center">3</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container">
+<img alt="User" class="w-full h-full rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGz9jlyU3ljeV2HnUmzV3_EAQ0O-k_CTJbEbfJzqQ56bJECippOd0EWpoEeTKLdd4aMUQFfarhD3OHJ146ROEuPXjCHBGUVYaW_lT15HyWtU8tI5x1g0wJzj3s80wRRf1Nmh5wcckZb8Y9Bf0fVp0LGkoODDikGwboj7je71yzzcRWw-ViQZPTudOhv6eqe7e9GdtJOlQ50JAwBUf1JVPdHEXxDejUXUwr5JTyCNfiHlAAC4Pbq5UJOcI3aBvSSe8BnX584RRBnLQ"/>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-background">Jonas K.</p>
+<p class="text-label-sm text-on-surface-variant">1,980 EcoPoints</p>
+</div>
+</div>
+<button class="w-full py-sm text-primary font-label-md text-center hover:underline mt-md">View Full Rankings</button>
+</div>
+</div>
+<!-- Impact Stats Card -->
+<div class="bg-primary p-lg rounded-3xl shadow-xl text-white relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"></div>
+<h3 class="font-headline-md text-headline-md mb-md">Community Impact</h3>
+<div class="space-y-lg">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined">cloud_off</span>
+</div>
+<div>
+<p class="text-headline-md font-headline-md">42.5 Tons</p>
+<p class="text-label-sm text-primary-fixed">CO2 Offset Together</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div>
+<p class="text-headline-md font-headline-md">1.2M Liters</p>
+<p class="text-label-sm text-primary-fixed">Water Saved Community-wide</p>
+</div>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-white/10">
+<p class="font-label-sm text-primary-fixed">Next Milestone: 50 Tons CO2</p>
+<div class="h-1.5 w-full bg-white/20 rounded-full mt-sm">
+<div class="h-full bg-white w-4/5 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Upcoming Meetups -->
+<div class="bg-surface-container-high p-lg rounded-3xl border border-white/50">
+<h3 class="font-label-md text-label-md text-on-surface mb-md">Local Meetups</h3>
+<div class="space-y-md">
+<div class="bg-white p-sm rounded-2xl flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex flex-col items-center justify-center text-primary leading-none">
+<span class="text-label-sm font-bold">OCT</span>
+<span class="text-headline-md font-bold">14</span>
+</div>
+<div>
+<p class="font-label-md text-on-background">Beach Cleanup</p>
+<p class="text-label-sm text-on-surface-variant">Sunset Bay · 09:00 AM</p>
+</div>
+</div>
+<div class="bg-white p-sm rounded-2xl flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex flex-col items-center justify-center text-primary leading-none">
+<span class="text-label-sm font-bold">OCT</span>
+<span class="text-headline-md font-bold">18</span>
+</div>
+<div>
+<p class="font-label-md text-on-background">Urban Garden Tour</p>
+<p class="text-label-sm text-on-surface-variant">Central Park · 04:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- FAB for Action (Contextual: Home/Community) -->
+<button class="fixed bottom-lg right-lg w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-50 group">
+<span class="material-symbols-outlined text-3xl">add</span>
+<span class="absolute right-full mr-md bg-inverse-surface text-inverse-on-surface px-md py-sm rounded-xl font-label-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Create Post</span>
+</button>
+<script>
+        // Micro-interactions for activity like button
+        document.querySelectorAll('button .material-symbols-outlined').forEach(icon => {
+            if (icon.textContent === 'favorite') {
+                icon.parentElement.addEventListener('click', function() {
+                    const countSpan = this.querySelector('.font-label-md');
+                    let count = parseInt(countSpan.textContent);
+                    
+                    if (this.classList.contains('text-primary')) {
+                        this.classList.remove('text-primary');
+                        this.classList.add('text-on-surface-variant');
+                        countSpan.textContent = count - 1;
+                    } else {
+                        this.classList.add('text-primary');
+                        this.classList.remove('text-on-surface-variant');
+                        countSpan.textContent = count + 1;
+                    }
+                });
+            }
+        });
+
+        // Simple smooth scroll for nav links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Add active state styling
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.className = "text-on-surface-variant hover:bg-secondary-container/50 transition-colors px-4 py-2 rounded-full font-label-md";
+                });
+                this.className = "text-primary bg-primary-container/20 px-4 py-2 rounded-full font-label-md";
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EcoSphere | Footprint Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#27313e",
+                        "surface-tint": "#006c49",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "on-surface-variant": "#3c4a42",
+                        "surface-container-high": "#dfe9fa",
+                        "on-primary-container": "#00422b",
+                        "primary-fixed-dim": "#4edea3",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#566660",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#ff7e2d",
+                        "secondary-fixed": "#d5e6df",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#4edea3",
+                        "surface-container": "#e5eeff",
+                        "outline": "#6c7a71",
+                        "on-secondary-fixed-variant": "#3b4a44",
+                        "on-tertiary-container": "#622700",
+                        "secondary-container": "#d3e3dc",
+                        "secondary-fixed-dim": "#bacac3",
+                        "primary-container": "#10b981",
+                        "secondary": "#52625c",
+                        "on-secondary-fixed": "#101e1a",
+                        "on-background": "#121c28",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#ffdbca",
+                        "primary": "#006c49",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-primary-fixed": "#002113",
+                        "tertiary": "#9d4300",
+                        "outline-variant": "#bbcabf",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#6ffbbe",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "surface-dim": "#d1dbec",
+                        "on-tertiary-fixed": "#341100",
+                        "on-surface": "#121c28",
+                        "surface-bright": "#f8f9ff",
+                        "surface-variant": "#d9e3f4",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#eef4ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "16px",
+                        "container-padding": "20px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "3xl": "64px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Quicksand"],
+                        "headline-lg": ["Quicksand"],
+                        "display-lg": ["Quicksand"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            color: #121c28;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .shadow-primary-soft {
+            box-shadow: 0 4px 20px rgba(0, 108, 73, 0.1);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.8s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Top Navigation Anchor -->
+<header class="bg-surface dark:bg-surface shadow-sm w-full top-0 sticky z-50">
+<div class="flex justify-between items-center px-gutter py-md w-full max-center mx-auto max-w-[1040px]">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim font-bold tracking-tight">EcoSphere</span>
+</div>
+<nav class="hidden md:flex items-center gap-xl">
+<a class="font-label-md text-label-md flex items-center gap-sm bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+                    Dashboard
+                </a>
+<a class="font-label-md text-label-md flex items-center gap-sm text-on-surface-variant hover:bg-secondary-container/50 transition-colors rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined text-[18px]">public</span>
+                    World
+                </a>
+<a class="font-label-md text-label-md flex items-center gap-sm text-on-surface-variant hover:bg-secondary-container/50 transition-colors rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined text-[18px]">eco</span>
+                    Actions
+                </a>
+<a class="font-label-md text-label-md flex items-center gap-sm text-on-surface-variant hover:bg-secondary-container/50 transition-colors rounded-full px-4 py-1" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+                    Community
+                </a>
+</nav>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-xs px-3 py-1 bg-tertiary-fixed rounded-full text-on-tertiary-fixed">
+<span class="text-label-md font-label-md">7 🔥</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile" data-alt="A professional headshot of a friendly young woman with a warm smile, set against a soft-focus garden background. The lighting is bright and natural, reflecting an optimistic and eco-conscious lifestyle. Her attire is professional yet approachable, fitting the modern high-tech environmental brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG9wDDpdFN3JkkOKSU_rzhggUyyxkk6vxVPZ74IX8jClYZLeSTmCbjXTOnEOt4Kyu4wctoxsMZnUUzkkJAqFUD9AZwbBTLQZVj6T1TetN-4g4Bc4uo6-FyxC8yz1luMPnXA6TRwHoVZnxJUrOnKc_6fU8QKeSovQMs40eO0ipBXuDLY8EJJ4O7mdKgDOD9cWNfr60fi-kRfFYVZDUoTPurh--_5-PfcTjFscJ8pMNtjxJwhgJGzZYXOOPpRfcJQw15tUyrgk1D3c4"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1040px] mx-auto px-gutter py-xl flex flex-col gap-xl">
+<!-- Dashboard Hero Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg items-start">
+<!-- Main Footprint Meter (Bento Col 1-7) -->
+<section class="md:col-span-7 bg-surface-container-lowest rounded-3xl p-xl shadow-primary-soft flex flex-col items-center relative overflow-hidden">
+<div class="absolute top-0 right-0 p-lg opacity-10">
+<span class="material-symbols-outlined text-[120px] text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div class="w-full mb-xl">
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-base">Monthly Footprint</h1>
+<p class="font-body-md text-on-surface-variant">You're on track to beat your carbon goal this month.</p>
+</div>
+<!-- Circular Meter -->
+<div class="relative flex items-center justify-center w-64 h-64 md:w-80 md:h-80 my-lg">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<circle class="text-secondary-container stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="8"></circle>
+<circle class="text-primary-container stroke-current progress-ring-circle" cx="50" cy="50" fill="transparent" r="40" stroke-linecap="round" stroke-width="8" style="stroke-dasharray: 251.2; stroke-dashoffset: 65;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-display-lg text-display-lg text-primary">742</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">kg CO2e</span>
+<div class="mt-md px-3 py-1 bg-surface-container-high rounded-full">
+<span class="font-label-sm text-label-sm text-on-primary-container">Goal: 850kg</span>
+</div>
+</div>
+</div>
+<div class="w-full grid grid-cols-3 gap-md pt-lg border-t border-surface-variant/30">
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Last Month</p>
+<p class="font-headline-md text-headline-md text-on-background">812kg</p>
+</div>
+<div class="text-center border-x border-surface-variant/30 px-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Saved</p>
+<p class="font-headline-md text-headline-md text-tertiary">108kg</p>
+</div>
+<div class="text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Plan</p>
+<p class="font-headline-md text-headline-md text-primary">Active</p>
+</div>
+</div>
+</section>
+<!-- Sidebar Column (Bento Col 8-12) -->
+<aside class="md:col-span-5 flex flex-col gap-lg h-full">
+<!-- Project Reforest Visual Highlight -->
+<div class="relative group rounded-3xl overflow-hidden shadow-primary-soft h-64 md:h-[320px]">
+<img alt="Project Reforest" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A lush, vibrant young forest plantation during the golden hour. Sunlight filters through the delicate green leaves of saplings, creating a sense of hope and growth. The overall mood is ethereal and peaceful, with soft bokeh highlighting the texture of the leaves and the rich, dark soil. The lighting is warm, perfectly aligning with the eco-conscious and optimistic brand theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASScpwbBXsC2autHcu7CJav_aPNK56jaGRProzlinYZj-NVEyPISCLtZ9qFyPIL_juUdLOGxhrRdYdwMu7_GvoXgGx3aHZ60bSJPwpS0Rbd9inVawLzpIkOhuBgNyTngZyq8HcBrBAp7PZJDq9MlQjhQX_pnMmeEKj0aQOP17oA-2tSjtGCvjrbLWyynpSw3B72F3WZm9xvH4zLB3zC78DQc3qoKAByFnXxBf_frq_S6XyMnrbqEHHLx--BYEzQdQRsoK4CI_e8TU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent flex flex-col justify-end p-xl">
+<span class="font-label-sm text-label-sm text-primary-fixed bg-on-primary-container/30 backdrop-blur-md px-3 py-1 rounded-full w-fit mb-md">Community Initiative</span>
+<h2 class="font-headline-md text-headline-md text-white">Project Reforest</h2>
+<p class="font-body-md text-white/90 text-sm mt-sm">You've contributed 12 trees this quarter. Let's reach 20.</p>
+<button class="mt-lg w-full py-3 bg-white text-primary font-label-md rounded-full hover:bg-primary-fixed transition-colors active:scale-95 duration-200">View Progress</button>
+</div>
+</div>
+<!-- Eco Insights Section -->
+<section class="bg-surface-container rounded-3xl p-xl flex-1 border border-primary/5">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Eco Insights</h3>
+</div>
+<div class="space-y-md">
+<div class="bg-surface-container-lowest p-md rounded-2xl flex gap-md items-start shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">restaurant</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Switch to Oat Milk</p>
+<p class="font-body-md text-xs text-on-surface-variant">Reduces your daily food footprint by 0.4kg CO2e.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl flex gap-md items-start shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">directions_bike</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Biking Streak: 4 Days</p>
+<p class="font-body-md text-xs text-on-surface-variant">You've saved 2.1kg of travel emissions this week!</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl flex gap-md items-start shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary">power_settings_new</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Smart Plug Optimization</p>
+<p class="font-body-md text-xs text-on-surface-variant">Evening idle usage reduced by 15% across home devices.</p>
+</div>
+</div>
+</div>
+</section>
+</aside>
+</div>
+<!-- Category Breakdown Grid -->
+<section>
+<div class="flex items-baseline justify-between mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-background">Category Breakdown</h2>
+<a class="font-label-md text-primary flex items-center gap-xs hover:underline underline-offset-4" href="#">Detailed View <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg">
+<!-- Transport Card -->
+<article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:translate-y-[-4px] transition-transform duration-300 group">
+<div class="flex justify-between items-start mb-xl">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-[28px]">commute</span>
+</div>
+<span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg">32% of total</span>
+</div>
+<div>
+<h4 class="font-headline-md text-on-surface mb-xs">Transport</h4>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-lg text-headline-lg text-primary">237</span>
+<span class="font-label-sm text-on-surface-variant">kg</span>
+</div>
+<div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 75%;"></div>
+</div>
+<p class="mt-sm font-label-sm text-on-surface-variant text-right">Trend: -12% vs last mo</p>
+</div>
+</article>
+<!-- Food Card -->
+<article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:translate-y-[-4px] transition-transform duration-300 group">
+<div class="flex justify-between items-start mb-xl">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-[28px]">restaurant</span>
+</div>
+<span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg">28% of total</span>
+</div>
+<div>
+<h4 class="font-headline-md text-on-surface mb-xs">Food</h4>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-lg text-headline-lg text-primary">208</span>
+<span class="font-label-sm text-on-surface-variant">kg</span>
+</div>
+<div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 62%;"></div>
+</div>
+<p class="mt-sm font-label-sm text-on-surface-variant text-right">Trend: +4% vs last mo</p>
+</div>
+</article>
+<!-- Home Card -->
+<article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:translate-y-[-4px] transition-transform duration-300 group">
+<div class="flex justify-between items-start mb-xl">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-[28px]">home</span>
+</div>
+<span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg">24% of total</span>
+</div>
+<div>
+<h4 class="font-headline-md text-on-surface mb-xs">Home</h4>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-lg text-headline-lg text-primary">178</span>
+<span class="font-label-sm text-on-surface-variant">kg</span>
+</div>
+<div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 48%;"></div>
+</div>
+<p class="mt-sm font-label-sm text-on-surface-variant text-right">Trend: -18% vs last mo</p>
+</div>
+</article>
+<!-- Shopping Card -->
+<article class="bg-white rounded-3xl p-lg shadow-primary-soft hover:translate-y-[-4px] transition-transform duration-300 group">
+<div class="flex justify-between items-start mb-xl">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-[28px]">shopping_bag</span>
+</div>
+<span class="font-label-sm text-on-surface-variant bg-surface px-2 py-1 rounded-lg">16% of total</span>
+</div>
+<div>
+<h4 class="font-headline-md text-on-surface mb-xs">Shopping</h4>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-lg text-headline-lg text-primary">119</span>
+<span class="font-label-sm text-on-surface-variant">kg</span>
+</div>
+<div class="mt-lg h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 35%;"></div>
+</div>
+<p class="mt-sm font-label-sm text-on-surface-variant text-right">Trend: -2% vs last mo</p>
+</div>
+</article>
+</div>
+</section>
+<!-- Dynamic Activity Log / Quick Actions -->
+<section class="mb-3xl">
+<div class="bg-surface-container-highest rounded-3xl p-xl flex flex-col md:flex-row items-center gap-xl">
+<div class="flex-1">
+<h3 class="font-headline-md text-on-surface mb-sm">Log an Emission Action</h3>
+<p class="font-body-md text-on-surface-variant">Just finished a walk? Bought local produce? Record it now to see your live score improve.</p>
+</div>
+<div class="flex flex-wrap gap-md shrink-0">
+<button class="bg-primary text-white px-6 py-3 rounded-full font-label-md shadow-lg active:scale-95 transition-all hover:bg-primary-fixed-dim hover:text-on-primary-fixed">
+                        + Log Travel
+                    </button>
+<button class="bg-surface-container-lowest text-primary border border-primary/20 px-6 py-3 rounded-full font-label-md active:scale-95 transition-all hover:bg-secondary-container">
+                        + Log Purchase
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile Navigation Shell (Hidden on Desktop as per rules) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container dark:bg-surface-container shadow-[0_-4px_20px_rgba(0,108,73,0.1)] flex justify-around items-center h-20 px-4 pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">public</span>
+<span class="font-label-sm text-label-sm">World</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">eco</span>
+<span class="font-label-sm text-label-sm">Actions</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</div>
+</nav>
+<script>
+        // Simple micro-interaction for the progress ring on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const circle = document.querySelector('.progress-ring-circle');
+            if (circle) {
+                // Total circumference is ~251.2 (for r=40)
+                // 742 / 850 is approx 87% progress
+                // Let's animate from 100% offset to 13% offset
+                circle.style.strokeDashoffset = '251.2';
+                setTimeout(() => {
+                    const progress = 742 / 850;
+                    const offset = 251.2 - (progress * 251.2);
+                    circle.style.strokeDashoffset = offset;
+                }, 300);
+            }
+        });
+
+        // Hover effects for the category cards
+        const cards = document.querySelectorAll('article');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const progress = card.querySelector('.h-full');
+                if (progress) {
+                    progress.classList.add('brightness-110');
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                const progress = card.querySelector('.h-full');
+                if (progress) {
+                    progress.classList.remove('brightness-110');
+                }
+            });
+        });
+    </script>
+</body></html>
