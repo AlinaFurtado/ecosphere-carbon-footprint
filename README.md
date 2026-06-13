@@ -50,5 +50,5 @@ To build a practical, real-world prototype, the following emission factor guidel
 ## 🖥️ Local Verification
 
 1. Clone or download this repository.
-2. Open [index.html](index.html) directly in any web browser.
+2. Open https://alinafurtado.github.io/ecosphere-carbon-footprint/ directly in any web browser.
 3. Click the tabs, check off tasks, and chat with the AI Assistant to log emission data.
