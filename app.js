@@ -1,7 +1,7 @@
 // EcoSphere State Management & Interactive Logic
 
-// Initial application state
-const state = {
+// Initial application state template
+const DEFAULT_STATE = {
   user: {
     name: "Alina",
     streak: 7,
@@ -72,6 +72,28 @@ const state = {
   ]
 };
 
+// State instantiation
+let state = { ...DEFAULT_STATE };
+
+// Load saved state if present in localStorage
+try {
+  const localCache = localStorage.getItem('ecosphere_cached_state');
+  if (localCache) {
+    state = JSON.parse(localCache);
+  }
+} catch (err) {
+  console.warn("Could not read state from localStorage, using defaults.", err);
+}
+
+// Save state to localStorage helper
+function saveState() {
+  try {
+    localStorage.setItem('ecosphere_cached_state', JSON.stringify(state));
+  } catch (err) {
+    console.error("Failed to save state to localStorage.", err);
+  }
+}
+
 // --- NAVIGATION LOGIC ---
 let activeTab = 'world'; // Default view
 
@@ -136,6 +158,7 @@ function updatePointsAndStreak(pointsGained, streakUpdate = 0) {
   if (worldPoints) {
     worldPoints.textContent = `+${state.user.points}`;
   }
+  saveState();
 }
 
 // Render Dashboard View
@@ -240,6 +263,7 @@ function dismissMilestoneToast() {
   toast.classList.remove('opacity-100', 'translate-y-0');
   toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
   state.user.level = 3; // level up
+  saveState();
 }
 
 function toggleWorldItem(item) {
@@ -252,6 +276,7 @@ function toggleWorldItem(item) {
     addSystemChatMessage(`Removed ${item.toUpperCase()} upgrade from your Eco-Island.`);
   }
   renderWorld();
+  saveState();
 }
 
 // Render Action Plan View
